@@ -38,32 +38,18 @@ define([], function () {
                 s4() + '-' + s4() + s4() + s4();
         }
 
-        this.getMoreItems = function () {
+        this.getMoreItems = function (howmany) {
+            var items = [], i;
             hardcodedImages.sort( function() {
                 return 0.5 - Math.random()
             });
-            return [
-                {
+            for (i = 0; i < howmany; i += 1) {
+                items.push({
                     id: guid(),
-                    src: hardcodedImages[0]
-                },
-                {
-                    id: guid(),
-                    src: hardcodedImages[1]
-                },
-                {
-                    id: guid(),
-                    src: hardcodedImages[2]
-                },
-                {
-                    id: guid(),
-                    src: hardcodedImages[3]
-                },
-                {
-                    id: guid(),
-                    src: hardcodedImages[4]
-                }
-            ];
+                    src: hardcodedImages[i]
+                });
+            }
+            return items;
         };
 
     };
