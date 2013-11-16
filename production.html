@@ -17,7 +17,7 @@
             <!-- Title Area -->
             <li class="name">
                 <h1>
-                    <a href=":javascript">
+                    <a href="javascript:;">
                         Fancy
                     </a>
                 </h1>
@@ -28,29 +28,29 @@
         <section class="top-bar-section">
             <ul class="right">
                 <li class="divider"></li>
-                <li><a href=":javascript" id="sign-in">Sign In <i class="fa fa-sign-in"></i></a></li>
+                <li><a href="javascript:;" id="sign-in">Sign In <i class="fa fa-sign-in"></i></a></li>
                 <li class="divider"></li>
                 <li class="has-dropdown">
-                    <a href=":javascript">Help</a>
+                    <a href="javascript:;">Help</a>
                     <ul class="dropdown">
                         <li><label>Foo Bar Section</label></li>
                         <li class="has-dropdown">
-                            <a href=":javascript" class="">Foo Details</a>
+                            <a href="javascript:;" class="">Foo Details</a>
                             <ul class="dropdown">
-                                <li><a href=":javascript">Something here</a></li>
-                                <li><a href=":javascript">Different something</a></li>
+                                <li><a href="javascript:;">Something here</a></li>
+                                <li><a href="javascript:;">Different something</a></li>
                                 <li class="has-dropdown">
-                                    <a href=":javascript">Even another dropdown</a>
+                                    <a href="javascript:;">Even another dropdown</a>
                                     <ul class="dropdown test">
-                                        <li><a href=":javascript">Do something</a></li>
-                                        <li><a href=":javascript">Go somewhere</a></li>
+                                        <li><a href="javascript:;">Do something</a></li>
+                                        <li><a href="javascript:;">Go somewhere</a></li>
                                     </ul>
                                 </li>
-                                <li><a href=":javascript">Bar Details</a></li>
+                                <li><a href="javascript:;">Bar Details</a></li>
                             </ul>
                         </li>
                         <li class="divider"></li>
-                        <li><a href=":javascript">See all &rarr;</a></li>
+                        <li><a href="javascript:;">See all &rarr;</a></li>
                     </ul>
                 </li>
             </ul>
@@ -71,8 +71,8 @@
             </div>
             <div class="large-6 columns">
                 <ul class="inline-list right">
-                    <li><a href=":javascript">Foo</a></li>
-                    <li><a href=":javascript">Bar</a></li>
+                    <li><a href="javascript:;">Foo</a></li>
+                    <li><a href="javascript:;">Bar</a></li>
                 </ul>
             </div>
         </div>
@@ -94,18 +94,20 @@
 <script type="text-template" id="see-more-button-template">
     <div class="row">
         <div class="large-9 large-centered columns">
-            <a href=":javascript" class="large button expand" id="see-more-button"><i class="fa fa-refresh"></i> See more</a>
+            <a href="javascript:;" class="large button expand" id="see-more-button"><i class="fa fa-refresh"></i> See more</a>
         </div>
     </div>
 </script>
 
 <script type="text/template" id="login-template">
     <div class="row">
-        <div class="large-6 large-centered columns">
-            <div id="fb-root"></div>
-            <fb:login-button show-faces="true" width="200" max-rows="1"></fb:login-button>
+        <div class="large-9 large-centered columns">
+            <div class="panel">
+                <a href="javascript:;" class="large button expand" id="login-with-facebook">Login With Facebook</a>
+            </div>
         </div>
     </div>
+    <div id="fb-root">
 </script>
 
 <script src="production.js"></script>
