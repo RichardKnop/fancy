@@ -1,7 +1,7 @@
-javascript-skeleton-project
-===========================
+fancy
+=====
 
-A starting point for my JavaScript projects.
+Little experiment.
 
 Setup:
 ------
