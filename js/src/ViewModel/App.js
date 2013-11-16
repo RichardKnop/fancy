@@ -54,9 +54,10 @@ define([
         };
 
         this.logout = function () {
-            ServiceManager.getService("Facebook").logout();
-            this.home();
-        }
+            ServiceManager.getService("Facebook").logout(function () {
+                this.home();
+            });
+        };
 
         this.loginWithFacebook = function () {
             ServiceManager.getService("Facebook").login(function () {
@@ -68,9 +69,7 @@ define([
          * Binded properties
          */
 
-        this.isUserLoggedIn = ko.computed(function() {
-            return ServiceManager.getService("Facebook").isUserLoggedIn()
-        }, this);
+        this.isUserLoggedIn = ko.observable(false);
 
         this.siteTitle = ko.observable("Fancy");
 

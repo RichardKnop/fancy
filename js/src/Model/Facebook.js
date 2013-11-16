@@ -18,8 +18,6 @@ define(["Core/ServiceManager"], function (ServiceManager) {
                     xfbml      : true  // parse XFBML
                 });
 
-                that.checkUserLoggedIn();
-
                 // Here we subscribe to the auth.authResponseChange JavaScript event. This event is fired
                 // for any authentication related change, such as login, logout or session refresh. This means that
                 // whenever someone who was previously logged out tries to log in again, the correct case below
@@ -73,23 +71,6 @@ define(["Core/ServiceManager"], function (ServiceManager) {
                 // user is now logged out
                 that.setUserLoggedIn(false);
                 callback();
-            });
-        };
-
-        this.checkUserLoggedIn = function () {
-            FB.getLoginStatus(function(response) {
-                if (response.status === 'connected') {
-                    // the user is logged in and has authenticated your app
-                    that.setUserLoggedIn(true);
-                    that.fetchUserProfile();
-                } else if (response.status === 'not_authorized') {
-                    // the user is logged in to Facebook,
-                    // but has not authenticated your app
-                    that.setUserLoggedIn(false);
-                } else {
-                    // the user isn't logged in to Facebook.
-                    that.setUserLoggedIn(false);
-                }
             });
         };
 
