@@ -39,7 +39,7 @@ define([
                     id: obj.id
                 });
                 if ($("#see-more-button", container).length > 0) {
-                    $("#see-more-button", container).before(html);
+                    $("#see-more-button", container).parent().parent().before(html);
                 } else {
                     container.append(html);
                 }
