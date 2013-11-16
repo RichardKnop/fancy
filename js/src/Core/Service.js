@@ -38,7 +38,7 @@ define([], function () {
                 s4() + '-' + s4() + s4() + s4();
         }
 
-        this.getMoreItems = function (howmany) {
+        this.getMoreItems = function (howmany, callback) {
             var items = [], i;
             hardcodedImages.sort( function() {
                 return 0.5 - Math.random()
@@ -49,7 +49,7 @@ define([], function () {
                     src: hardcodedImages[i]
                 });
             }
-            return items;
+            callback(items);
         };
 
     };

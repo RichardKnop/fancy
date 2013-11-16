@@ -1,12 +1,11 @@
 "use strict";
 
-define(["jquery"], function () {
+define(["Core/Config", "jquery"], function (Config) {
 
     return function (options) {
 
         var queue = [],
             loadedImagesCount = 0,
-            capacity = options.capacity,
             that = this;
 
         this.preloadImg = function (src, placeholderId) {
@@ -35,7 +34,7 @@ define(["jquery"], function () {
         };
 
         this.finishedLastBatch = function () {
-            return capacity === loadedImagesCount;
+            return Config.imageQueueCapacity === loadedImagesCount;
         };
 
     };

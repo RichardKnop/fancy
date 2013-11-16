@@ -41,8 +41,9 @@ module.exports = function (grunt) {
                     paths: {
                         bower                       : "./../../bower_components",
                         jquery                      : "./../../bower_components/foundation/js/vendor/jquery",
-                        parse                       : "//www.parsecdn.com/js/parse-1.2.13.min",
                         modernizr                   : "./../../bower_components/foundation/js/vendor/custom.modernizr",
+                        parse                       : "//www.parsecdn.com/js/parse-1.2.13.min",
+                        knockout                    : "//cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min",
                         mustache                    : "./../../bower_components/mustache/mustache",
                         foundation                  : "./../../bower_components/foundation/js/foundation/foundation",
                         "foundation.alerts"         : "./../../bower_components/foundation/js/foundation/foundation.alerts",

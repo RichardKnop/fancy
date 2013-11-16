@@ -64,11 +64,13 @@ define([], function () {
         this.logout = function (callback) {
             FB.logout(function(response) {
                 // user is now logged out
+                userLoggedIn = false;
                 callback();
             });
         };
 
         this.isUserLoggedIn = function () {
+            return false;
             return userLoggedIn;
         };
 

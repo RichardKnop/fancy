@@ -14,13 +14,8 @@
 <div class="fixed">
     <nav class="top-bar">
         <ul class="title-area">
-            <!-- Title Area -->
             <li class="name">
-                <h1>
-                    <a href="javascript:;">
-                        Fancy
-                    </a>
-                </h1>
+                <h1><a href="javascript:;" data-bind="text: siteTitle, click: home"></a></h1>
             </li>
             <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
         </ul>
@@ -28,7 +23,16 @@
         <section class="top-bar-section">
             <ul class="right">
                 <li class="divider"></li>
-                <li><a href="javascript:;" id="sign-in">Sign In <i class="fa fa-sign-in"></i></a></li>
+                <li data-bind="ifnot: isUserLoggedIn">
+                    <a href="javascript:;" data-bind="click: login">
+                        Sign In <i class="fa fa-sign-in"></i>
+                    </a>
+                </li>
+                <li data-bind="if: isUserLoggedIn">
+                    <a href="javascript:;" data-bind="click: logout">
+                        Sign Out <i class="fa fa-sign-out"></i>
+                    </a>
+                </li>
                 <li class="divider"></li>
                 <li class="has-dropdown">
                     <a href="javascript:;">Help</a>
@@ -46,8 +50,6 @@
     </nav>
 </div>
 
-<br><br><br>
-
 <div id="content-container"></div>
 
 <footer class="row">
@@ -59,8 +61,11 @@
             </div>
             <div class="large-6 columns">
                 <ul class="inline-list right">
-                    <li><a href="javascript:;">Foo</a></li>
-                    <li><a href="javascript:;">Bar</a></li>
+                    <li><a href="javascript:;">About</a></li>
+                    <li><a href="javascript:;">Contact</a></li>
+                    <li><a href="javascript:;">FAQ</a></li>
+                    <li><a href="javascript:;">Terms of Service</a></li>
+                    <li><a href="javascript:;">Privacy</a></li>
                 </ul>
             </div>
         </div>
@@ -68,6 +73,14 @@
 </footer>
 
 <div id="fb-root"></div>
+
+<script type="text/template" id="welcome-template">
+    <div class="row" id="welcome-text">
+        <div class="large-9 large-centered columns">
+            <p>Welcome! Find, share and buy amazing things here.</p>
+        </div>
+    </div>
+</script>
 
 <script type="text/template" id="item-template">
     <div class="row">
@@ -84,7 +97,7 @@
 <script type="text-template" id="see-more-button-template">
     <div class="row">
         <div class="large-9 large-centered columns">
-            <a href="javascript:;" class="large button expand" id="see-more-button"><i class="fa fa-refresh"></i> &nbsp; See more</a>
+            <a href="javascript:;" class="large button expand" id="see-more-button" data-bind="click: seeMore">Show me more amazing things!</a>
         </div>
     </div>
 </script>
@@ -92,8 +105,9 @@
 <script type="text/template" id="login-template">
     <div class="row">
         <div class="large-9 large-centered columns">
+            <h2>Login with Facebook</h2>
             <div class="panel">
-                <a href="javascript:;" class="large button expand" id="login-with-facebook"><i class="fa fa-facebook"></i> &nbsp; Login With Facebook</a>
+                <a href="javascript:;" class="large button expand" data-bind="click: loginWithFacebook"><i class="fa fa-facebook"></i> &nbsp; Login</a>
             </div>
         </div>
     </div>
