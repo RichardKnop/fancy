@@ -54,6 +54,7 @@ define([
 
         this.pages = {
             home: function () {
+                container.html("");
                 that.loadImages();
                 container.append(seeMoreButtonTemplate);
                 $("#see-more-button").click(function () {
