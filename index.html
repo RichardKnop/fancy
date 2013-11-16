@@ -1,13 +1,93 @@
 <!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
-    <title>Hello World</title>
-    <link href="css/stylesheets/ie.css" rel="stylesheet">
-    <link href="css/stylesheets/print.css" rel="stylesheet" media="print">
-    <link href="css/stylesheets/screen.css" rel="stylesheet">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width">
+    <title>Fancy</title>
+    <link href="css/stylesheets/main.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 </head>
 <body>
+
+<nav class="top-bar">
+    <ul class="title-area">
+        <!-- Title Area -->
+        <li class="name">
+            <h1>
+                <a href="#">
+                    Fancy
+                </a>
+            </h1>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+        <ul class="right">
+            <li class="divider"></li>
+            <li><a href="#">Sign In <i class="fa fa-sign-in"></i></a></li>
+            <li class="divider"></li>
+            <li class="has-dropdown">
+                <a href="#">Help</a>
+                <ul class="dropdown">
+                    <li><label>Foo Bar Section</label></li>
+                    <li class="has-dropdown">
+                        <a href="#" class="">Foo Details</a>
+                        <ul class="dropdown">
+                            <li><a href="#">Something here</a></li>
+                            <li><a href="#">Different something</a></li>
+                            <li class="has-dropdown">
+                                <a href="#">Even another dropdown</a>
+                                <ul class="dropdown test">
+                                    <li><a href="#">Do something</a></li>
+                                    <li><a href="#">Go somewhere</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Bar Details</a></li>
+                        </ul>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a href="#">See all &rarr;</a></li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+</nav>
+
+<br>
+<div id="content-container"></div>
+
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+                <p>&copy; Copyright no one at all. Go to town.</p>
+            </div>
+            <div class="large-6 columns">
+                <ul class="inline-list right">
+                    <li><a href="#">Foo</a></li>
+                    <li><a href="#">Bar</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script type="text/template" id="item-template">
+    <div class="row">
+        <div class="large-9 large-centered columns">
+            <div class="panel">
+                <p>
+                    <div class="preloader" id="{{id}}"></div>
+                </p>
+            </div>
+        </div>
+    </div>
+</script>
+
 <script data-main="js/src/bootstrap" src="bower_components/requirejs/require.js"></script>
 </body>
 </html>
