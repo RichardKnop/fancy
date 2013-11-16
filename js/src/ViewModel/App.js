@@ -79,7 +79,6 @@ define([
          */
         this.renderPage = function (page) {
             this[page]();
-            ko.applyBindings(this);
         };
 
         this.home = function () {
@@ -87,11 +86,13 @@ define([
             loadImages();
             container.append(seeMoreButtonTemplate);
             ServiceManager.getService("Router").updateParam("page", "home");
+            ko.applyBindings(this, $("#see-more-button")[0]);
         };
 
         this.login = function () {
             container.html(loginTemplate);
             ServiceManager.getService("Router").updateParam("page", "login");
+            ko.applyBindings(this, $("#login-with-fb")[0]);
         };
 
     };

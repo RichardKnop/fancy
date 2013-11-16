@@ -24,17 +24,14 @@ define([
 
                 // init knockout bindings
                 var appViewModel = new AppViewModel();
+                ServiceManager.setService("AppViewModel", appViewModel);
+
+                // bind top bar
+                ko.applyBindings(appViewModel, $(".top-bar")[0]);
 
                 // render
                 var page = ServiceManager.getService("Router").getParam("page");
                 appViewModel.renderPage(page);
-//                $("nav.top-bar").click(function () {
-//                    if (!$(this).parents("li:first").hasClass("has-dropdown") && !$(this).parents("li:first").hasClass("back")) {
-//                        console.log($(this).parents("li:first").hasClass("back"));
-//                        console.log($(this).parents("li:first").html());
-//                        $("nav.top-bar").removeClass("expanded");
-//                    }
-//                });
             });
         };
 
