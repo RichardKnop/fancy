@@ -55,12 +55,12 @@ define([
 
         this.logout = function () {
             ServiceManager.getService("Facebook").logout();
-            this.showPage("home");
+            this.home();
         }
 
         this.loginWithFacebook = function () {
             ServiceManager.getService("Facebook").login(function () {
-                that.showPage("home");
+                that.home();
             });
         };
 
@@ -77,7 +77,7 @@ define([
         /*
          * Pages
          */
-        this.showPage = function (page) {
+        this.renderPage = function (page) {
             this[page]();
             ko.applyBindings(this);
         };

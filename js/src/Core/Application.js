@@ -27,7 +27,14 @@ define([
 
                 // render
                 var page = ServiceManager.getService("Router").getParam("page");
-                appViewModel.showPage(page);
+                appViewModel.renderPage(page);
+//                $("nav.top-bar").click(function () {
+//                    if (!$(this).parents("li:first").hasClass("has-dropdown") && !$(this).parents("li:first").hasClass("back")) {
+//                        console.log($(this).parents("li:first").hasClass("back"));
+//                        console.log($(this).parents("li:first").html());
+//                        $("nav.top-bar").removeClass("expanded");
+//                    }
+//                });
             });
         };
 
