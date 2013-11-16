@@ -82,16 +82,16 @@ define([
         };
 
         this.home = function () {
+            ServiceManager.getService("Router").updateParam("page", "home");
             container.html(welcomeTemplate);
             loadImages();
             container.append(seeMoreButtonTemplate);
-            ServiceManager.getService("Router").updateParam("page", "home");
             ko.applyBindings(this, $("#see-more-button")[0]);
         };
 
         this.login = function () {
-            container.html(loginTemplate);
             ServiceManager.getService("Router").updateParam("page", "login");
+            container.html(loginTemplate);
             ko.applyBindings(this, $("#login-with-fb")[0]);
         };
 
