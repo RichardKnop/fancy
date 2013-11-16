@@ -63,10 +63,15 @@ define([
                 router.updateParam("page", "home");
             },
             login: function () {
+                if (facebook.isUserLoggedIn()) {
+                    return;
+                }
                 container.html(loginTemplate);
                 facebook.init();
                 $("#login-with-facebook").click(function () {
-                    facebook.login();
+                    facebook.login(function () {
+                        that.pages["home"]();
+                    });
                     return false;
                 });
                 router.updateParam("page", "login");
