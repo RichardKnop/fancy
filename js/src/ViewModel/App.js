@@ -55,7 +55,7 @@ define([
 
         this.logout = function () {
             ServiceManager.getService("Facebook").logout(function () {
-                this.home();
+                that.home();
             });
         };
 
@@ -82,6 +82,9 @@ define([
         };
 
         this.home = function () {
+            if ("home" === ServiceManager.getService("Router").getParam("page")) {
+                return;
+            }
             ServiceManager.getService("Router").updateParam("page", "home");
             container.html(welcomeTemplate);
             loadImages();
@@ -90,6 +93,9 @@ define([
         };
 
         this.login = function () {
+            if ("login" === ServiceManager.getService("Router").getParam("page")) {
+                return;
+            }
             ServiceManager.getService("Router").updateParam("page", "login");
             container.html(loginTemplate);
             ko.applyBindings(this, $("#login-with-fb")[0]);
