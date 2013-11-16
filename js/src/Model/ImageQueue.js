@@ -1,6 +1,6 @@
 "use strict";
 
-define(["mustache"], function (Mustache) {
+define(["jquery"], function () {
 
     return function (options) {
 
@@ -22,13 +22,9 @@ define(["mustache"], function (Mustache) {
             queue.push(obj);
         };
 
-        this.launch = function () {
-            var container = $("#content-container"),
-                template = $("#item-template").html();
+        this.launch = function (callback) {
             queue.forEach(function (obj) {
-                container.append(Mustache.render(template, {
-                    id: obj.id
-                }));
+                callback(obj);
                 that.preloadImg(obj.src, obj.id);
             });
         };

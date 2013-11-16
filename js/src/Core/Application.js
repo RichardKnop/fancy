@@ -1,48 +1,81 @@
 "use strict";
 
 define([
+    "Core/Router",
     "Core/Service",
     "Model/ImageQueue",
+    "Model/Facebook",
+    "mustache",
     "parse",
     "jquery",
     "modernizr",
     "foundation",
     "foundation.topbar"
-], function (Service, ImageQuque) {
+], function (Router, Service, ImageQueue, Facebook, Mustache) {
 
     return function () {
 
-        var service = new Service(),
+        var router = new Router(),
+            service = new Service(),
             howManyImagesToLoadAtOnce = 5,
-            imageQueue = new ImageQuque({
+            imageQueue = new ImageQueue({
                 capacity: howManyImagesToLoadAtOnce
             }),
+            facebook = new Facebook(),
             that = this,
-            win = $(window),
-            doc = $(document);
+            doc = $(document),
+            container = $("#content-container"),
+            itemTemplate = $("#item-template").html(),
+            seeMoreButtonTemplate = $("#see-more-button-template").html(),
+            loginTemplate = $("#login-template").html();
 
-        this.loadModeImages = function () {
+        this.loadImages = function () {
             imageQueue.reset();
             service.getMoreItems(howManyImagesToLoadAtOnce).forEach(function (obj) {
                 imageQueue.add(obj);
             });
-            imageQueue.launch();
-        }
-
-        this.hasReachedBottomOfPage = function () {
-            return win.scrollTop() + win.height() == doc.height();
+            imageQueue.launch(function (obj) {
+                var html = Mustache.render(itemTemplate, {
+                    id: obj.id
+                });
+                if ($("#see-more-button", container).length > 0) {
+                    $("#see-more-button", container).before(html);
+                } else {
+                    container.append(html);
+                }
+            });
         };
 
-        this.onScroll = function () {
-            if (that.hasReachedBottomOfPage() && imageQueue.finishedLastBatch()) {
-                console.log("loading more images");
-                that.loadModeImages();
+        this.loadMore = function () {
+            if (imageQueue.finishedLastBatch()) {
+                that.loadImages();
+            }
+        };
+
+        this.pages = {
+            home: function () {
+                that.loadImages();
+                container.append(seeMoreButtonTemplate);
+                $("#see-more-button").click(function () {
+                    that.loadMore();
+                    return false;
+                });
+                router.updateParam("page", "home");
+            },
+            login: function () {
+                container.html(loginTemplate);
+                facebook.init();
+                $("#login-with-facebook").click(function () {
+                    facebook.login();
+                    return false;
+                });
+                router.updateParam("page", "login");
             }
         };
 
         this.run = function () {
-            // load first images
-            this.loadModeImages();
+            router.parseHash(window.location.hash);
+            this.pages[router.getParam("page")]();
 
             // init the foundation framework
             doc.foundation();
@@ -53,8 +86,11 @@ define([
                 "B1tvx6jMJCLkshNzKXtT4YG6M0uQ98gtM42Db6K3"
             );
 
-            // endless scrolling
-            win.scroll(this.onScroll);
+            // topbar links
+            $("#sign-in").click(function () {
+                that.pages["login"]();
+                return false;
+            });
         };
 
     };

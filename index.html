@@ -11,52 +11,55 @@
 </head>
 <body>
 
-<nav class="top-bar">
-    <ul class="title-area">
-        <!-- Title Area -->
-        <li class="name">
-            <h1>
-                <a href="#">
-                    Fancy
-                </a>
-            </h1>
-        </li>
-        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-    </ul>
-
-    <section class="top-bar-section">
-        <ul class="right">
-            <li class="divider"></li>
-            <li><a href="#">Sign In <i class="fa fa-sign-in"></i></a></li>
-            <li class="divider"></li>
-            <li class="has-dropdown">
-                <a href="#">Help</a>
-                <ul class="dropdown">
-                    <li><label>Foo Bar Section</label></li>
-                    <li class="has-dropdown">
-                        <a href="#" class="">Foo Details</a>
-                        <ul class="dropdown">
-                            <li><a href="#">Something here</a></li>
-                            <li><a href="#">Different something</a></li>
-                            <li class="has-dropdown">
-                                <a href="#">Even another dropdown</a>
-                                <ul class="dropdown test">
-                                    <li><a href="#">Do something</a></li>
-                                    <li><a href="#">Go somewhere</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">Bar Details</a></li>
-                        </ul>
-                    </li>
-                    <li class="divider"></li>
-                    <li><a href="#">See all &rarr;</a></li>
-                </ul>
+<div class="fixed">
+    <nav class="top-bar">
+        <ul class="title-area">
+            <!-- Title Area -->
+            <li class="name">
+                <h1>
+                    <a href="javascript:;">
+                        Fancy
+                    </a>
+                </h1>
             </li>
+            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
         </ul>
-    </section>
-</nav>
+
+        <section class="top-bar-section">
+            <ul class="right">
+                <li class="divider"></li>
+                <li><a href="javascript:;" id="sign-in">Sign In <i class="fa fa-sign-in"></i></a></li>
+                <li class="divider"></li>
+                <li class="has-dropdown">
+                    <a href="javascript:;">Help</a>
+                    <ul class="dropdown">
+                        <li><label>Foo Bar Section</label></li>
+                        <li class="has-dropdown">
+                            <a href="javascript:;" class="">Foo Details</a>
+                            <ul class="dropdown">
+                                <li><a href="javascript:;">Something here</a></li>
+                                <li><a href="javascript:;">Different something</a></li>
+                                <li class="has-dropdown">
+                                    <a href="javascript:;">Even another dropdown</a>
+                                    <ul class="dropdown test">
+                                        <li><a href="javascript:;">Do something</a></li>
+                                        <li><a href="javascript:;">Go somewhere</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="javascript:;">Bar Details</a></li>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="javascript:;">See all &rarr;</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </nav>
+</div>
 
 <br>
+
 <div id="content-container"></div>
 
 <footer class="row">
@@ -68,8 +71,8 @@
             </div>
             <div class="large-6 columns">
                 <ul class="inline-list right">
-                    <li><a href="#">Foo</a></li>
-                    <li><a href="#">Bar</a></li>
+                    <li><a href="javascript:;">Foo</a></li>
+                    <li><a href="javascript:;">Bar</a></li>
                 </ul>
             </div>
         </div>
@@ -88,16 +91,23 @@
     </div>
 </script>
 
-<script type="text/template" id="facebook-login">
+<script type="text-template" id="see-more-button-template">
     <div class="row">
-        <div class="large-6 large-centered columns">
+        <div class="large-9 large-centered columns">
+            <a href="javascript:;" class="large button expand" id="see-more-button"><i class="fa fa-refresh"></i> See more</a>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="login-template">
+    <div class="row">
+        <div class="large-9 large-centered columns">
             <div class="panel">
-                <p>
-                    <h5>Login with Facebook</h5>
-                </p>
+                <a href="javascript:;" class="large button expand" id="login-with-facebook">Login With Facebook</a>
             </div>
         </div>
     </div>
+    <div id="fb-root">
 </script>
 
 <script data-main="js/src/bootstrap" src="bower_components/requirejs/require.js"></script>
