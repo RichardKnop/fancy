@@ -39,7 +39,12 @@ define([
 
                 // render
                 var page = ServiceManager.getService("Router").getParam("page");
-                appViewModel.renderPage(page);
+                if ("home" === page) {
+                    appViewModel.goToHomePage();
+                }
+                if ("login" === page) {
+                    appViewModel.goToLoginPage();
+                }
             });
         };
 

@@ -15,7 +15,7 @@
     <nav class="top-bar">
         <ul class="title-area">
             <li class="name">
-                <h1><a href="javascript:;" data-bind="text: siteTitle, click: renderPage('home')"></a></h1>
+                <h1><a href="javascript:;" data-bind="text: siteTitle, click: goToHomePage"></a></h1>
             </li>
             <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
         </ul>
@@ -24,7 +24,7 @@
             <ul class="right">
                 <li class="divider"></li>
                 <li data-bind="ifnot: isUserLoggedIn">
-                    <a href="javascript:;" data-bind="click: renderPage('login')">
+                    <a href="javascript:;" data-bind="click: goToLoginPage">
                         Sign In <i class="fa fa-sign-in"></i>
                     </a>
                 </li>

@@ -43,10 +43,11 @@ define([
             });
         };
 
-        function renderHome() {
-            if ("home" === ServiceManager.getService("Router").getParam("page")) {
-                return;
-            }
+        /*
+         * Event bindings
+         */
+
+        this.goToHomePage = function () {
             ServiceManager.getService("Router").updateParam("page", "home");
             container.html(welcomeTemplate);
             loadImages();
@@ -54,31 +55,11 @@ define([
             ko.applyBindings(this, $("#see-more-button")[0]);
         }
 
-        function renderLogin() {
-            if ("login" === ServiceManager.getService("Router").getParam("page")) {
-                return;
-            }
+        this.goToLoginPage = function () {
             ServiceManager.getService("Router").updateParam("page", "login");
             container.html(loginTemplate);
             ko.applyBindings(this, $("#login-with-fb")[0]);
         }
-
-        /*
-         * Render a page from hash, e.g. #page=home renders home page
-         */
-
-        this.renderPage = function (page) {
-            if ("home" === page) {
-                renderHome();
-            }
-            if ("login" === page) {
-                renderLogin();
-            }
-        };
-
-        /*
-         * Event bindings
-         */
 
         this.seeMore = function () {
             if (ServiceManager.getService("ImageQueue").finishedLastBatch()) {
@@ -88,13 +69,13 @@ define([
 
         this.logout = function () {
             ServiceManager.getService("Facebook").logout(function () {
-                renderHome();
+                that.goToHomePage();
             });
         };
 
         this.loginWithFacebook = function () {
             ServiceManager.getService("Facebook").login(function () {
-                renderHome();
+                that.goToHomePage();
             });
         };
 
