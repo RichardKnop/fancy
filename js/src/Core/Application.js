@@ -68,7 +68,6 @@ define([
                     return;
                 }
                 container.html(loginTemplate);
-                facebook.init();
                 $("#login-with-facebook").click(function () {
                     facebook.login(function () {
                         that.pages["home"]();
@@ -80,6 +79,7 @@ define([
         };
 
         this.run = function () {
+            facebook.init();
             router.parseHash(window.location.hash);
             this.pages[router.getParam("page")]();
 
