@@ -5,6 +5,7 @@ requirejs.config({
     paths: {
         bower                       : "./../../bower_components",
         jquery                      : "./../../bower_components/foundation/js/vendor/jquery",
+        parse                       : "//www.parsecdn.com/js/parse-1.2.13.min",
         modernizr                   : "./../../bower_components/foundation/js/vendor/custom.modernizr",
         mustache                    : "./../../bower_components/mustache/mustache",
         foundation                  : "./../../bower_components/foundation/js/foundation/foundation",
@@ -23,6 +24,9 @@ requirejs.config({
         "foundation.tooltips"       : "./../../bower_components/foundation/js/foundation/foundation.tooltips"
     },
     shim: {
+        parse: {
+            exports: "Parse"
+        },
         modernizr: {
             exports: "Modernizr"
         },

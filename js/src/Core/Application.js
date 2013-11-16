@@ -2,54 +2,69 @@
 
 define([
     "Core/Service",
-    "mustache",
+    "Model/ImageQueue",
+    "parse",
     "jquery",
     "modernizr",
     "foundation",
     "foundation.topbar"
-], function (Service, Mustache) {
+], function (Service, ImageQuque) {
 
     return function () {
 
         var service = new Service(),
             howManyImagesToLoadAtOnce = 5,
-            loadedImagesCount = 0;
+            imageQueue = new ImageQuque({
+                capacity: howManyImagesToLoadAtOnce
+            }),
+            that = this,
+            win = $(window),
+            doc = $(document);
 
-        function preloadImg(src, placeholder) {
-            var img = document.createElement('img'); // or new Image()
-            img.onload = function () {
-                placeholder.replaceWith($(img));
-                loadedImagesCount += 1;
-            };
-            img.src = src;
-        }
-
-        function loadModeImages() {
-            console.log("loading more images");
-            service.getMoreItems(howManyImagesToLoadAtOnce).forEach(function (item) {
-                $("#content-container").append(Mustache.render($("#item-template").html(), {
-                    id: item.id
-                }));
-                preloadImg(item.src, $("#" + item.id));
+        this.loadModeImages = function () {
+            imageQueue.reset();
+            service.getMoreItems(howManyImagesToLoadAtOnce).forEach(function (obj) {
+                imageQueue.add(obj);
             });
+            imageQueue.launch();
         }
+
+        this.hasReachedBottomOfPage = function () {
+            return win.scrollTop() + win.height() == doc.height();
+        };
+
+        this.onScroll = function () {
+            if (that.hasReachedBottomOfPage() && imageQueue.finishedLastBatch()) {
+                console.log("loading more images");
+                that.loadModeImages();
+            }
+        };
 
         this.run = function () {
-            var win = $(window),
-                doc = $(document);
+            // load first images
+            this.loadModeImages();
 
-            loadModeImages();
+            // init the foundation framework
             doc.foundation();
 
+            // init cloud
+            Parse.initialize(
+                "uyHzk27yl86o2wM1eHGB4rgWXhTTb8ghMYQ6PzNp",
+                "B1tvx6jMJCLkshNzKXtT4YG6M0uQ98gtM42Db6K3"
+            );
+
             // endless scrolling
-            win.scroll(function () {
-                if (win.scrollTop() + win.height() == doc.height() && howManyImagesToLoadAtOnce === loadedImagesCount) {
-                    loadedImagesCount = 0;
-                    loadModeImages();
-                }
-            });
+            win.scroll(this.onScroll);
         };
 
     };
 
 });
+
+//            var TestObject = Parse.Object.extend("TestObject");
+//            var testObject = new TestObject();
+//            testObject.save({foo: "bar"}, {
+//                success: function(object) {
+//                    alert("yay! it worked");
+//                }
+//            });
