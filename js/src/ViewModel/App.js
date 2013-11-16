@@ -43,6 +43,39 @@ define([
             });
         };
 
+        function renderHome() {
+            if ("home" === ServiceManager.getService("Router").getParam("page")) {
+                return;
+            }
+            ServiceManager.getService("Router").updateParam("page", "home");
+            container.html(welcomeTemplate);
+            loadImages();
+            container.append(seeMoreButtonTemplate);
+            ko.applyBindings(this, $("#see-more-button")[0]);
+        }
+
+        function renderLogin() {
+            if ("login" === ServiceManager.getService("Router").getParam("page")) {
+                return;
+            }
+            ServiceManager.getService("Router").updateParam("page", "login");
+            container.html(loginTemplate);
+            ko.applyBindings(this, $("#login-with-fb")[0]);
+        }
+
+        /*
+         * Render a page from hash, e.g. #page=home renders home page
+         */
+
+        this.renderPage = function (page) {
+            if ("home" === page) {
+                renderHome();
+            }
+            if ("login" === page) {
+                renderLogin();
+            }
+        };
+
         /*
          * Event bindings
          */
@@ -55,13 +88,13 @@ define([
 
         this.logout = function () {
             ServiceManager.getService("Facebook").logout(function () {
-                that.home();
+                renderHome();
             });
         };
 
         this.loginWithFacebook = function () {
             ServiceManager.getService("Facebook").login(function () {
-                that.home();
+                renderHome();
             });
         };
 
@@ -72,34 +105,6 @@ define([
         this.isUserLoggedIn = ko.observable(false);
 
         this.siteTitle = ko.observable("Fancy");
-
-        /*
-         * Pages
-         */
-
-        this.renderPage = function (page) {
-            this[page]();
-        };
-
-        this.home = function () {
-            if ("home" === ServiceManager.getService("Router").getParam("page")) {
-                return;
-            }
-            ServiceManager.getService("Router").updateParam("page", "home");
-            container.html(welcomeTemplate);
-            loadImages();
-            container.append(seeMoreButtonTemplate);
-            ko.applyBindings(this, $("#see-more-button")[0]);
-        };
-
-        this.login = function () {
-            if ("login" === ServiceManager.getService("Router").getParam("page")) {
-                return;
-            }
-            ServiceManager.getService("Router").updateParam("page", "login");
-            container.html(loginTemplate);
-            ko.applyBindings(this, $("#login-with-fb")[0]);
-        };
 
     };
 
