@@ -64,6 +64,15 @@ module.exports = function (grunt) {
                         modernizr: {
                             exports: "Modernizr"
                         },
+                        parse: {
+                            exports: "Parse"
+                        },
+                        knockout: {
+                            exports: "ko"
+                        },
+                        mustache: {
+                            exports: "Mustache"
+                        },
                         foundation: {
                             deps: ["jquery"]
                         },
@@ -139,6 +148,10 @@ module.exports = function (grunt) {
                 src: "images/*",
                 dest: "_site/"
             },
+            configFile: {
+                src: "config.json",
+                dest: "_site/config.json"
+            },
             productionHTMLFile: {
                 src: productionHTMLFile,
                 dest: "_site/index.html"
@@ -197,8 +210,8 @@ module.exports = function (grunt) {
 
     grunt.registerTask("build", [
         "install", "test", "createSiteDir", "requirejs",
-        "copy:images", "copy:productionJSFile", "cssmin", "copy:productionHTMLFile",
-        "clean:productionJSFile", "clean:productionCSSFile"
+        "copy:configFile", "copy:images", "copy:productionJSFile", "copy:productionHTMLFile",
+        "cssmin", "clean:productionJSFile", "clean:productionCSSFile"
     ]);
 
     grunt.registerTask("reset", [
