@@ -8,6 +8,23 @@ define([], function () {
             userProfile,
             that = this;
 
+        function loadJs(src, callback) {
+            var s = document.createElement('script');
+            document.getElementsByTagName('head')[0].appendChild(s);
+            s.onload = function() {
+                //callback if existent.
+                if (typeof callback == "function") callback();
+                callback = null;
+            }
+            s.onreadystatechange = function() {
+                if (s.readyState == 4 || s.readyState == "complete") {
+                    if (typeof callback == "function") callback();
+                    callback = null; // Wipe callback, to prevent multiple calls.
+                }
+            }
+            s.src = src;
+        }
+
         this.init = function () {
             window.fbAsyncInit = function() {
                 FB.init({
@@ -17,6 +34,8 @@ define([], function () {
                     cookie     : true, // enable cookies to allow the server to access the session
                     xfbml      : true  // parse XFBML
                 });
+
+                that.checkUserLoggedIn();
 
                 // Here we subscribe to the auth.authResponseChange JavaScript event. This event is fired
                 // for any authentication related change, such as login, logout or session refresh. This means that
@@ -46,6 +65,9 @@ define([], function () {
                 if (d.getElementById(id)) {return;}
                 js = d.createElement('script'); js.id = id; js.async = true;
                 js.src = "//connect.facebook.net/en_US/all.js";
+                js.onload = function () {
+                    that.checkUserLoggedIn();
+                };
                 ref.parentNode.insertBefore(js, ref);
             }) (document);
         };
@@ -71,6 +93,22 @@ define([], function () {
                 // user is now logged out
                 that.setUserLoggedIn(false);
                 callback();
+            });
+        };
+
+        this.checkUserLoggedIn = function () {
+            FB.getLoginStatus(function(response) {
+                if (response.status === 'connected') {
+                    // the user is logged in and has authenticated your app
+                    that.setUserLoggedIn(true);
+                } else if (response.status === 'not_authorized') {
+                    // the user is logged in to Facebook,
+                    // but has not authenticated your app
+                    that.setUserLoggedIn(false);
+                } else {
+                    // the user isn't logged in to Facebook.
+                    that.setUserLoggedIn(false);
+                }
             });
         };
 

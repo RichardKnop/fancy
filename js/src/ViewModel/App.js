@@ -77,7 +77,7 @@ define([
         /*
          * Pages
          */
-        
+
         this.renderPage = function (page) {
             this[page]();
         };
