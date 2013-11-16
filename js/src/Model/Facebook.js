@@ -54,7 +54,7 @@ define(["Core/ServiceManager"], function (ServiceManager) {
 
         this.setUserLoggedIn = function (loggedIn) {
             userLoggedIn = loggedIn;
-            ServiceManager.getService("AppViewModel").userIsLoggedIn(userLoggedIn);
+            ServiceManager.getService("AppViewModel").isUserLoggedIn(userLoggedIn);
         };
 
         this.login = function (callback) {
