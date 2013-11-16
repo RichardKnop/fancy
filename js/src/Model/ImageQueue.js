@@ -16,7 +16,7 @@ define(["jquery"], function () {
                 loadedImagesCount += 1;
             };
             img.src = src;
-        }
+        };
 
         this.add = function (obj) {
             queue.push(obj);

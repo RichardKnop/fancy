@@ -50,14 +50,21 @@ define([], function () {
             }) (document);
         };
 
-        this.login = function (afterLogin) {
+        this.login = function (callback) {
             FB.login(function(response) {
                 if (response.authResponse) {
                     // The person logged into your app
-                    afterLogin();
+                    callback();
                 } else {
                     // The person cancelled the login dialog
                 }
+            });
+        };
+
+        this.logout = function (callback) {
+            FB.logout(function(response) {
+                // user is now logged out
+                callback();
             });
         };
 
