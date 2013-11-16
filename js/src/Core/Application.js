@@ -1,9 +1,10 @@
 "use strict";
 
 define([
-    "Core/Config", "Core/ServiceManager", "ViewModel/App", "knockout",
+    "Core/Config", "Core/ServiceManager", "Core/Router", "Core/Service",
+    "Model/ImageQueue", "Model/Facebook", "ViewModel/App", "knockout",
     "parse", "jquery", "modernizr", "foundation", "foundation.topbar"
-], function (Config, ServiceManager, AppViewModel, ko) {
+], function (Config, ServiceManager, Router, Service, ImageQueue, Facebook, AppViewModel, ko) {
 
     return function () {
 
@@ -11,7 +12,14 @@ define([
             $.getJSON("config.json", function (optionsJSON) {
                 // init config and service manager
                 Config.init(optionsJSON);
-                ServiceManager.init();
+                ServiceManager.setService("Router", new Router());
+                ServiceManager.setService("Service", new Service());
+                ServiceManager.setService("ImageQueue", new ImageQueue({
+                    capacity: Config.imageQueueCapacity
+                }));
+                ServiceManager.setService("Facebook", new Facebook());
+                ServiceManager.getService("Facebook").init();
+                ServiceManager.getService("Router").parseHash(window.location.hash);
 
                 // init the foundation framework
                 $(document).foundation();

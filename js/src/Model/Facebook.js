@@ -1,29 +1,12 @@
 "use strict";
 
-define([], function () {
+define(["Core/ServiceManager"], function (ServiceManager) {
 
     return function () {
 
         var userLoggedIn = false,
             userProfile,
             that = this;
-
-        function loadJs(src, callback) {
-            var s = document.createElement('script');
-            document.getElementsByTagName('head')[0].appendChild(s);
-            s.onload = function() {
-                //callback if existent.
-                if (typeof callback == "function") callback();
-                callback = null;
-            }
-            s.onreadystatechange = function() {
-                if (s.readyState == 4 || s.readyState == "complete") {
-                    if (typeof callback == "function") callback();
-                    callback = null; // Wipe callback, to prevent multiple calls.
-                }
-            }
-            s.src = src;
-        }
 
         this.init = function () {
             window.fbAsyncInit = function() {
@@ -98,6 +81,7 @@ define([], function () {
                 if (response.status === 'connected') {
                     // the user is logged in and has authenticated your app
                     that.setUserLoggedIn(true);
+                    that.fetchUserProfile();
                 } else if (response.status === 'not_authorized') {
                     // the user is logged in to Facebook,
                     // but has not authenticated your app
