@@ -46,7 +46,10 @@ define([], function () {
             for (i = 0; i < howmany; i += 1) {
                 items.push({
                     id: guid(),
-                    src: hardcodedImages[i]
+                    src: hardcodedImages[i],
+                    likesCount: Math.floor(Math.random() * 1000),
+                    boughtCount: Math.floor(Math.random() * 50),
+                    desc: "£39.99 - Short image caption should be here"
                 });
             }
             callback(items);

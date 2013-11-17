@@ -1,20 +1,34 @@
 "use strict";
 
-define(["Core/Config", "jquery"], function (Config) {
+define([
+    "Core/Config", "Core/ServiceManager", "ViewModel/Item",
+    "mustache", "knockout", "jquery"
+], function (Config, ServiceManager, ItemViewModel, Mustache, ko) {
 
-    return function (options) {
+    return function () {
 
         var queue = [],
             loadedImagesCount = 0,
             that = this;
 
-        this.preloadImg = function (src, placeholderId) {
+        this.preloadImg = function (obj) {
             var img = document.createElement('img');
             img.onload = function () {
-                $("#" + placeholderId).replaceWith($(img));
+                var figure = Mustache.render($("#fig-template").html(), {
+                        src: obj.src,
+                        caption: obj.desc
+                    }),
+                    viewModel;
+
+                $("#" + obj.id).replaceWith(figure);
                 loadedImagesCount += 1;
+
+                viewModel = new ItemViewModel();
+                viewModel.likesCount(obj.likesCount);
+                viewModel.boughtCount(obj.boughtCount);
+                ko.applyBindings(viewModel, $("#item-" + obj.id)[0]);
             };
-            img.src = src;
+            img.src = obj.src;
         };
 
         this.add = function (obj) {
@@ -24,7 +38,7 @@ define(["Core/Config", "jquery"], function (Config) {
         this.launch = function (callback) {
             queue.forEach(function (obj) {
                 callback(obj);
-                that.preloadImg(obj.src, obj.id);
+                that.preloadImg(obj);
             });
         };
 

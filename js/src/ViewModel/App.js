@@ -53,13 +53,13 @@ define([
             loadImages();
             container.append(seeMoreButtonTemplate);
             ko.applyBindings(this, $("#see-more-button")[0]);
-        }
+        };
 
         this.goToLoginPage = function () {
             ServiceManager.getService("Router").updateParam("page", "login");
             container.html(loginTemplate);
             ko.applyBindings(this, $("#login-with-fb")[0]);
-        }
+        };
 
         this.seeMore = function () {
             if (ServiceManager.getService("ImageQueue").finishedLastBatch()) {

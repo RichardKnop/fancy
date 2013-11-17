@@ -38,6 +38,8 @@
                     <a href="javascript:;">Help</a>
                     <ul class="dropdown">
                         <li class="divider"></li>
+                        <li><a href="javascript:;">About</a></li>
+                        <li class="divider"></li>
                         <li><a href="javascript:;">Contact</a></li>
                         <li><a href="javascript:;">FAQ</a></li>
                         <li class="divider"></li>
@@ -54,7 +56,7 @@
 
 <footer class="row">
     <div class="large-12 columns">
-        <hr />
+        <hr>
         <div class="row">
             <div class="large-6 columns">
                 <p>&copy; Copyright no one at all. Go to town.</p>
@@ -77,21 +79,45 @@
 <script type="text/template" id="welcome-template">
     <div class="row" id="welcome-text">
         <div class="large-9 large-centered columns">
-            <p>Welcome! Find, share and buy amazing things here.</p>
+            Welcome! Find, share and buy amazing things here.
         </div>
     </div>
 </script>
 
 <script type="text/template" id="item-template">
-    <div class="row">
-        <div class="large-9 large-centered columns">
-            <div class="panel">
-                <p>
-                    <div class="preloader" id="{{id}}"></div>
-                </p>
-            </div>
+    <div class="row" id="item-{{id}}">
+        <div class="large-12 large-centered columns">
+            <p class="clearfix">
+                <div class="preloader" id="{{id}}"></div>
+            </p>
         </div>
     </div>
+</script>
+
+<script type="text/template" id="fig-template">
+    <figure class="cap-left">
+        <img src="{{src}}" alt="{{caption}}">
+        <figcaption class="clearfix">
+            <h5>{{caption}}</h5>
+            <hr>
+            <p class="left">
+                <span data-bind="ifnot: liked">
+                    <a hre="javascript:;" class="button small success radius" data-bind="click: like">
+                        <i class="fa fa-thumbs-o-up"></i> Like
+                    </a> &nbsp; <span data-bind="text: likesCount"></span> liked this
+                </span>
+                <span data-bind="if: liked">
+                    You and <span data-bind="text: likesCount"></span> liked this
+                </span>
+            </p>
+            <p class="right">
+                <a hre="javascript:;" class="button small radius" data-bind="click: buy">
+                    <i class="fa fa-credit-card"></i> Buy
+                </a> &nbsp;
+                <span data-bind="text: boughtCount"></span> clicked buy
+            </p>
+        </figcaption>
+    </figure>
 </script>
 
 <script type="text-template" id="see-more-button-template">

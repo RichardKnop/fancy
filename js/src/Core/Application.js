@@ -2,9 +2,12 @@
 
 define([
     "Core/Config", "Core/ServiceManager", "Core/Router", "Core/Service",
-    "Model/ImageQueue", "Model/Facebook", "ViewModel/App", "knockout",
+    "Model/ImageQueue", "Model/Facebook", "ViewModel/App", "Core/Renderer", "knockout",
     "parse", "jquery", "modernizr", "foundation", "foundation.topbar"
-], function (Config, ServiceManager, Router, Service, ImageQueue, Facebook, AppViewModel, ko) {
+], function (
+    Config, ServiceManager, Router, Service,
+    ImageQueue, Facebook, AppViewModel, Renderer, ko
+) {
 
     return function () {
 
@@ -33,18 +36,10 @@ define([
                 // init knockout bindings
                 var appViewModel = new AppViewModel();
                 ServiceManager.setService("AppViewModel", appViewModel);
-
-                // bind top bar
                 ko.applyBindings(appViewModel, $(".top-bar")[0]);
 
                 // render
-                var page = ServiceManager.getService("Router").getParam("page");
-                if ("home" === page) {
-                    appViewModel.goToHomePage();
-                }
-                if ("login" === page) {
-                    appViewModel.goToLoginPage();
-                }
+                Renderer.render();
             });
         };
 
