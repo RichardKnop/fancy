@@ -25,7 +25,6 @@ define([
 
                 viewModel = new ItemViewModel();
                 viewModel.likesCount(obj.likesCount);
-                viewModel.boughtCount(obj.boughtCount);
                 ko.applyBindings(viewModel, $("#item-" + obj.id)[0]);
             };
             img.src = obj.src;

@@ -95,34 +95,37 @@
 </script>
 
 <script type="text/template" id="fig-template">
-    <figure class="cap-left">
+    <figure class="cap-top">
         <img src="{{src}}" alt="{{caption}}">
         <figcaption class="clearfix">
-            <h5>{{caption}}</h5>
-            <hr>
-            <p class="left">
-                <span data-bind="ifnot: liked">
-                    <a hre="javascript:;" class="button small success radius" data-bind="click: like">
-                        <i class="fa fa-thumbs-o-up"></i> Like
-                    </a> &nbsp; <span data-bind="text: likesCount"></span> liked this
-                </span>
-                <span data-bind="if: liked">
-                    You and <span data-bind="text: likesCount"></span> liked this
-                </span>
-            </p>
-            <p class="right">
+            <div class="right">
                 <a hre="javascript:;" class="button small radius" data-bind="click: buy">
                     <i class="fa fa-credit-card"></i> Buy
-                </a> &nbsp;
-                <span data-bind="text: boughtCount"></span> clicked buy
-            </p>
+                </a>
+            </div>
+            <h6>{{caption}}</h6>
+            <span data-bind="ifnot: liked">
+                <div class="left">
+                    <a hre="javascript:;" class="button small success radius" data-bind="click: like">
+                        <i class="fa fa-thumbs-o-up"></i> Like
+                    </a>&nbsp; <span data-bind="text: likesCount"></span> likes
+                </div>
+            </span>
+            <span data-bind="if: liked">
+                <div class="left">
+                    <span class="radius success label">
+                        <i class="fa fa-thumbs-o-up"></i>
+                        You and <span data-bind="text: likesCount"></span> liked this
+                    </span>
+                </div>
+            </span>
         </figcaption>
     </figure>
 </script>
 
 <script type="text-template" id="see-more-button-template">
     <div class="row">
-        <div class="large-9 large-centered columns">
+        <div class="large-12 large-centered columns">
             <a href="javascript:;" class="large button expand" id="see-more-button" data-bind="click: seeMore">Show me more amazing things!</a>
         </div>
     </div>
@@ -130,7 +133,7 @@
 
 <script type="text/template" id="login-template">
     <div class="row">
-        <div class="large-9 large-centered columns">
+        <div class="large-12 large-centered columns">
             <h2>Login with Facebook</h2>
             <div class="panel">
                 <a href="javascript:;" class="large button expand" id="login-with-fb" data-bind="click: loginWithFacebook"><i class="fa fa-facebook"></i> &nbsp; Login</a>
