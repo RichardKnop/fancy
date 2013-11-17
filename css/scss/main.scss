@@ -17,6 +17,12 @@ h1, h2, h3, h4, h5, p, li, figcaption, figcaption a, figcaption small {
 .large-centered {
   text-align: center;
 }
+.item-row {
+  min-height: 100px;
+  .preloader {
+    margin-top: 13px;
+  }
+}
 
 .clearfix {
   @include clearfix;
