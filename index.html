@@ -98,23 +98,21 @@
     <figure class="cap-left">
         <img src="{{src}}" alt="{{caption}}">
         <figcaption class="clearfix">
-            <h5>{{caption}}</h5>
-            <hr>
+            <h6>{{caption}}</h6>
             <p class="left">
                 <span data-bind="ifnot: liked">
-                    <a hre="javascript:;" class="button small success radius" data-bind="click: like">
+                    <a hre="javascript:;" class="button tiny success radius" data-bind="click: like">
                         <i class="fa fa-thumbs-o-up"></i> Like
-                    </a> &nbsp; <span data-bind="text: likesCount"></span> liked this
+                    </a> &nbsp; <small><span data-bind="text: likesCount"></span> liked this</small>
                 </span>
                 <span data-bind="if: liked">
-                    You and <span data-bind="text: likesCount"></span> liked this
+                    <small>You and <span data-bind="text: likesCount"></span> liked this</small>
                 </span>
             </p>
             <p class="right">
-                <a hre="javascript:;" class="button small radius" data-bind="click: buy">
+                <a hre="javascript:;" class="button tiny radius" data-bind="click: buy">
                     <i class="fa fa-credit-card"></i> Buy
-                </a> &nbsp;
-                <span data-bind="text: boughtCount"></span> clicked buy
+                </a> &nbsp; <small><span data-bind="text: boughtCount"></span> clicked buy</small>
             </p>
         </figcaption>
     </figure>
