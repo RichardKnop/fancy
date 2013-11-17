@@ -85,8 +85,6 @@ define([
 
         this.isUserLoggedIn = ko.observable(false);
 
-        this.siteTitle = ko.observable("Fancy");
-
     };
 
 });

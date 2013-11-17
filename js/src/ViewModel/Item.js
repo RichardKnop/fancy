@@ -13,7 +13,7 @@ define(["knockout", "jquery"], function (ko) {
             this.likesCount(this.likesCount() + 1);
         };
 
-        this.buy = function () {
+        this.details = function () {
             console.log("TODO");
         };
 

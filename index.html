@@ -5,7 +5,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>Fancy</title>
+    <title>Welcome to Swishlist</title>
+    <meta name="description" content="Welcome to Swishlist! Find and share trendy and beautiful things here.">
     <link href="css/stylesheets/main.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 </head>
@@ -15,7 +16,7 @@
     <nav class="top-bar">
         <ul class="title-area">
             <li class="name">
-                <h1><a href="javascript:;" data-bind="text: siteTitle, click: goToHomePage"></a></h1>
+                <h1><a href="javascript:;" data-bind="click: goToHomePage">Swishlist</a></h1>
             </li>
             <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
         </ul>
@@ -79,7 +80,7 @@
 <script type="text/template" id="welcome-template">
     <div class="row" id="welcome-text">
         <div class="large-9 large-centered columns">
-            Welcome! Find, share and buy amazing things here.
+            Welcome to Swishlist! Find and share trendy and beautiful things here.
         </div>
     </div>
 </script>
@@ -95,12 +96,12 @@
 </script>
 
 <script type="text/template" id="fig-template">
-    <figure class="cap-top">
+    <figure class="cap-bottom">
         <img src="{{src}}" alt="{{caption}}">
         <figcaption class="clearfix">
             <div class="right">
-                <a hre="javascript:;" class="button small radius" data-bind="click: buy">
-                    <i class="fa fa-credit-card"></i> Buy
+                <a hre="javascript:;" class="button small radius" data-bind="click: details">
+                    <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
             <h6>{{caption}}</h6>
@@ -121,6 +122,16 @@
             </span>
         </figcaption>
     </figure>
+</script>
+
+<script type="text/template" id="item-detail-template">
+    <div class="row item-row" id="item-{{id}}">
+        <div class="large-9 large-centered columns">
+            <p class="clearfix">
+                <div class="preloader" id="{{id}}"></di>
+            </p>
+        </div>
+    </div>
 </script>
 
 <script type="text-template" id="see-more-button-template">
