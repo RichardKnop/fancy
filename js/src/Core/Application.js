@@ -2,11 +2,13 @@
 
 define([
     "Core/Config", "Core/ServiceManager", "Core/Router", "Core/Service",
-    "Model/ImageQueue", "Model/Facebook", "ViewModel/App", "Core/Renderer", "knockout",
-    "parse", "jquery", "modernizr", "foundation", "foundation.topbar"
+    "Model/ImageQueue", "Model/Facebook",
+    "ViewModel/App", "Core/PageController", "Core/Renderer", "knockout",
+    "parse", "jquery", "modernizr", "foundation", "foundation.topbar", "foundation/placeholder"
 ], function (
     Config, ServiceManager, Router, Service,
-    ImageQueue, Facebook, AppViewModel, Renderer, ko
+    ImageQueue, Facebook,
+    AppViewModel, PageController, Renderer, ko
 ) {
 
     return function () {
@@ -23,6 +25,7 @@ define([
                 ServiceManager.setService("Facebook", new Facebook());
                 ServiceManager.getService("Facebook").init();
                 ServiceManager.getService("Router").parseHash(window.location.hash);
+                ServiceManager.setService("PageController", new PageController());
 
                 // init the foundation framework
                 $(document).foundation();

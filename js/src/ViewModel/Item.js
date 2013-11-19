@@ -1,21 +1,52 @@
 "use strict";
 
-define(["knockout", "jquery"], function (ko) {
+define(["Core/ServiceManager", "knockout"], function (ServiceManager, ko) {
 
     return function () {
 
-        this.liked = ko.observable(false);
+        /*
+         * Private properties
+         */
 
-        this.likesCount = ko.observable();
+        var pageController = ServiceManager.getService("PageController");
 
-        this.like = function () {
-            this.liked(true);
-            this.likesCount(this.likesCount() + 1);
+
+        /*
+         * Event bindings
+         */
+
+        this.goToDetailsPage = function () {
+            pageController.goToDetailsPage(this);
         };
 
-        this.details = function () {
-            console.log("TODO");
+        this.swish = function () {
+            this.swished(true);
+            this.swishCount(this.swishCount() + 1);
         };
+
+        this.comments = function () {
+            pageController.goToDetailsPage(this);
+        };
+
+        this.buy = function () {
+            alert("not implemented");
+        };
+
+        /*
+         * Binded properties
+         */
+
+        this.id = ko.observable();
+
+        this.src = ko.observable();
+
+        this.description = ko.observable();
+
+        this.commentCount = ko.observable();
+
+        this.swishCount = ko.observable();
+
+        this.swished = ko.observable(false);
 
     };
 

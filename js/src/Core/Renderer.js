@@ -5,13 +5,23 @@ define(["Core/ServiceManager"], function (ServiceManager) {
     return {
 
         render: function () {
-            var page = ServiceManager.getService("Router").getParam("page");
+            var router = ServiceManager.getService("Router"),
+                pageController = ServiceManager.getService("PageController"),
+                page = router.getParam("page"),
+                id = router.getParam("id");
             if ("home" === page) {
-                ServiceManager.getService("AppViewModel").goToHomePage();
+                pageController.goToHomePage();
+                return;
             }
             if ("login" === page) {
-                ServiceManager.getService("AppViewModel").goToLoginPage();
+                pageController.goToLoginPage();
+                return;
             }
+            if ("details" === page && id) {
+                pageController.goToDetailsPage(id);
+                return;
+            }
+            pageController.goTo404Page();
         }
 
     };

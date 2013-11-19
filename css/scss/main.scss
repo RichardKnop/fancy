@@ -1,65 +1,94 @@
 @charset "UTF-8";
 
-@import "../../bower_components/foundation/scss/normalize";
-@import "../../bower_components/foundation/scss/foundation";
-@import "compass";
 @import url(http://fonts.googleapis.com/css?family=Droid+Sans);
+@import "../../bower_components/foundation/scss/normalize";
+
+/* General */
+$primary-color: #424853;
+$button-function-factor: 3%;
+$header-font-family: "Droid Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-family: "Droid Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+
+/* Topbar */
+$topbar-bg: $primary-color;
+$topbar-height: 45px;
+$topbar-margin-bottom: 1.25em;
+$topbar-dropdown-bg: $primary-color;
+$topbar-link-bg-hover: darken($topbar-bg, 3%);
+$topbar-divider-border-bottom: solid 1px lighten($topbar-bg, 10%);
+$topbar-divider-border-top: solid 1px darken($topbar-bg, 10%);
+
+@import "../../bower_components/foundation/scss/foundation/components/global";
+@import "../../bower_components/foundation/scss/foundation/components/grid";
+@import "../../bower_components/foundation/scss/foundation/components/type";
+@import "../../bower_components/foundation/scss/foundation/components/buttons";
+@import "../../bower_components/foundation/scss/foundation/components/top-bar";
+@import "../../bower_components/foundation/scss/foundation/components/panels";
+@import "../../bower_components/foundation/scss/foundation/components/labels";
+@import "../../bower_components/foundation/scss/foundation/components/orbit"; /* needed for placeholder */
+
+@import "compass";
+
+/* Buttons */
+$button-med: em-calc(12);
+$button-tny: em-calc(7);
+$button-sml: em-calc(9);
+$button-lrg: em-calc(16);
 
 html, body {
-  font-family: 'Droid Sans', sans-serif;
-  color: #333;
+  color: #444;
+  background: #ebeced;
 }
 
 h1, h2, h3, h4, h5, p, li, figcaption, figcaption a, figcaption small {
   font-family: 'Droid Sans', sans-serif;
 }
 
-.large-centered {
-  text-align: center;
-}
-.item-row {
-  min-height: 100px;
-  .preloader {
-    margin-top: 13px;
-  }
-}
-
 .clearfix {
   @include clearfix;
 }
 
-figure {
-  position: relative;
-  overflow: hidden;
-  text-align: left;
-  display: block;
+.large-centered {
+  text-align: center;
+}
 
-  img {
-    width: 100%;
-  }
+.swish-panel {
+  @include panel(#ffffff, 0.5em, false);
+  @include clearfix;
+  border: 1px solid #ddd;
+  @include border-radius(.25em, .25em);
 
-  figcaption {
-    width: 100%;
-    position: absolute;
-    background: black;
-    background: rgba(0,0,0,0.75);
-    color: white;
-    padding: 10px;
-    opacity: 0.9;
+  figure {
+    overflow: hidden;
+    text-align: left;
+    display: block;
 
-    h6 {
-      color: white;
-      font-weight: normal;
+    img {
+      width: 100%;
     }
 
-    .button {
-      margin-bottom: 0;
+    figcaption {
+      width: 100%;
+      padding-top: .5em;
+      line-height: 2em;
+
+      h5 {
+        font-weight: normal;
+      }
+
+      .swish-button {
+        margin-bottom: 0;
+      }
     }
   }
 }
 
-.cap-bottom figcaption { left: 0; bottom: 0; }
-
-#welcome-text {
-  margin-top: 1em;
+.swish-button {
+  @include button($button-sml);
+}
+.full-width-button {
+  @include button($button-lrg, $primary-color, 0, true);
+}
+.buy-button {
+  @include button($button-lrg, #68bb42, 0, true);
 }

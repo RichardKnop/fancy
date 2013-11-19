@@ -5,7 +5,8 @@ define([], function () {
     return function () {
 
         var interestingKeys = [
-                "page"
+                "page",
+                "id"
             ],
             storage = {},
             defaults = {

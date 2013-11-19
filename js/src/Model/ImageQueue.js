@@ -1,9 +1,6 @@
 "use strict";
 
-define([
-    "Core/Config", "Core/ServiceManager", "ViewModel/Item",
-    "mustache", "knockout", "jquery"
-], function (Config, ServiceManager, ItemViewModel, Mustache, ko) {
+define(["Core/Config", "jquery"], function (Config) {
 
     return function () {
 
@@ -11,21 +8,11 @@ define([
             loadedImagesCount = 0,
             that = this;
 
-        this.preloadImg = function (obj) {
+        this.preloadImg = function (obj, callback) {
             var img = document.createElement('img');
             img.onload = function () {
-                var figure = Mustache.render($("#fig-template").html(), {
-                        src: obj.src,
-                        caption: obj.desc
-                    }),
-                    viewModel;
-
-                $("#" + obj.id).replaceWith(figure);
                 loadedImagesCount += 1;
-
-                viewModel = new ItemViewModel();
-                viewModel.likesCount(obj.likesCount);
-                ko.applyBindings(viewModel, $("#item-" + obj.id)[0]);
+                callback(obj);
             };
             img.src = obj.src;
         };
@@ -36,8 +23,7 @@ define([
 
         this.launch = function (callback) {
             queue.forEach(function (obj) {
-                callback(obj);
-                that.preloadImg(obj);
+                that.preloadImg(obj, callback);
             });
         };
 
