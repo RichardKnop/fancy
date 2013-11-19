@@ -20,14 +20,17 @@ define([
         this.loadImages = function () {
             var i;
             imageQueue.reset();
+
             service.getMoreItems(Config.imageQueueCapacity, function (items) {
                 items.forEach(function (obj) {
                     imageQueue.add(obj);
                 });
             });
+
             for (i = 0; i < Config.imageQueueCapacity / 2; i += 1) {
                 container.append(rowTemplate);
             }
+
             imageQueue.launch(function (obj) {
                 var rowItemHTML = Mustache.render(rowItemTemplate, {
                         id              : obj.id,
@@ -61,10 +64,15 @@ define([
             });
         };
 
-        this.goToHomePage = function () {
+        this.goToPageCommon = function (page) {
+            $(window).unbind("scroll");
             router.reset();
-            router.updateParam("page", "home");
+            router.updateParam("page", page);
             container.html("");
+        };
+
+        this.goToHomePage = function () {
+            this.goToPageCommon("home");
             this.loadImages();
             $(window).scroll(function() {
                 if($(window).scrollTop() + $(window).height() == $(document).height()) {
@@ -76,16 +84,15 @@ define([
         };
 
         this.goToLoginPage = function () {
-            router.reset();
-            router.updateParam("page", "login");
+            this.goToPageCommon("login");
             container.html(loginTemplate);
             ko.applyBindings(ServiceManager.getService("AppViewModel"), $("#login-with-fb")[0]);
         };
 
         this.goToDetailsPage = function (id) {
-            router.reset();
-            router.updateParam("page", "details");
+            this.goToPageCommon("details");
             router.updateParam("id", id);
+
             service.getItemById(id, function (obj) {
                 var itemDetailHTML = Mustache.render(itemDetailTemplate, {
                         id              : obj.id,
