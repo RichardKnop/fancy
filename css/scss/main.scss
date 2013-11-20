@@ -74,8 +74,8 @@ $button-lrg: em-calc(16);
 .swish-button {
   @include button($button-sml);
 }
-.full-width-button {
-  @include button($button-lrg, $primary-color, 0, true);
+.facebook-login-button {
+  @include button($button-lrg, $facebook-blue, 0, true);
 }
 .buy-button {
   @include button($button-lrg, #68bb42, 0, true);
