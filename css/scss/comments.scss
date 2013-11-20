@@ -1,97 +1,44 @@
 @charset "UTF-8";
 
+@import "../../bower_components/foundation/scss/foundation/components/global";
+@import "../../bower_components/foundation/scss/foundation/components/grid";
+@import "../../bower_components/foundation/scss/foundation/components/type";
+@import "../../bower_components/foundation/scss/foundation/components/buttons";
+@import "../../bower_components/foundation/scss/foundation/components/panels";
+@import "../../bower_components/foundation/scss/foundation/components/labels";
+@import "../../bower_components/foundation/scss/foundation/components/orbit"; /* needed for placeholder */
+
 @import "variables";
 @import "compass";
 
 .comments {
   text-align: left;
+
+  .comment {
+    display: table;
+    margin-top: 1.25em;
+    font-size: .9em;
+
+    .comment-img, .comment-body {
+      display: table-cell;
+    }
+
+    .comment-img {
+      width: 50px;
+      height: 50px;
+    }
+
+    .comment-body {
+      padding-left: 1em;
+
+      .attribution {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
 
-.comment {
-  overflow: hidden;
-  padding: 0 0 1em;
-  border-bottom: 1px solid #ddd;
-  margin: 0 0 1em;
-  *zoom: 1;
-}
-
-.comment-img {
-  float: left;
-  margin-right: 33px;
-  border-radius: 5px;
-  overflow: hidden;
-}
-
-.comment-img img {
-  display: block;
-}
-
-.comment-body {
-  overflow: hidden;
-}
-
-.comment .text {
-  padding: 10px;
-  border: 1px solid $primary-color;
-  border-radius: 5px;
-  color: #eee;
-  background: $primary-color;
-}
-
-.comment .text p:last-child {
-  margin: 0;
-}
-
-.comment .attribution {
-  margin: 0.5em 0 0;
-  font-size: 14px;
-}
-
-/* Decoration */
-
-.comments, .comment {
-  position: relative;
-}
-
-.comments:before, .comment:before, .comment .text:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 65px;
-}
-
-.comments:before {
-  width: 3px;
-  top: -20px;
-  bottom: -20px;
-  background: rgba(0,0,0,0.1);
-}
-
-.comment:before {
-  width: 9px;
-  height: 9px;
-  border: 3px solid #fff;
-  border-radius: 100px;
-  margin: 16px 0 0 -3px;
-  box-shadow: 0 1px 1px rgba(0,0,0,0.2), inset 0 1px 1px rgba(0,0,0,0.1);
-  background: #ccc;
-}
-
-.comment:hover:before {
-  background: orange;
-}
-
-.comment .text:before {
-  top: 18px;
-  left: 78px;
-  width: 9px;
-  height: 9px;
-  border-width: 0 0 1px 1px;
-  border-style: solid;
-  border-color: $primary-color;;
-  background: $primary-color;;
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
+.comment-panel {
+  @include panel($primary-color, 1em, false);
+  color: $background-color;
 }

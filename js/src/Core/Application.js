@@ -49,7 +49,8 @@ define([
                     element: document.getElementById('content')
                 });
                 snapper.settings({
-                    disable: "right"
+                    disable: "right",
+                    touchToDrag: false
                 });
                 $("#open-left").click(function () {
                     if( snapper.state().state=="left" ){

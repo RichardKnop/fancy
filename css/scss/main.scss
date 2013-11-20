@@ -26,11 +26,12 @@ $button-sml: em-calc(9);
 $button-lrg: em-calc(16);
 
 #content {
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden; /* Chrome and Safari */
+  -moz-backface-visibility:hidden; /* Firefox */
+  -ms-backface-visibility:hidden; /* Internet Explorer 10+ */
+
   #content-container {
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden; /* Chrome and Safari */
-    -moz-backface-visibility: hidden; /* Firefox */
-    -ms-backface-visibility: hidden; /* Internet Explorer 10+ */
     position: absolute;
     top: 4.25em;
     position: absolute;
@@ -44,7 +45,6 @@ $button-lrg: em-calc(16);
   @include panel(#ffffff, 0.5em, false);
   @include clearfix;
   border: 1px solid #ddd;
-  @include border-radius(.25em, .25em);
 
   figure {
     overflow: hidden;
