@@ -46,9 +46,7 @@ module.exports = function (grunt) {
                         knockout                    : "//cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min",
                         mustache                    : "./../../bower_components/mustache/mustache",
                         foundation                  : "./../../bower_components/foundation/js/foundation/foundation",
-                        "foundation.topbar"         : "./../../bower_components/foundation/js/foundation/foundation.topbar",
-                        "foundation/placeholder"    : "./../../bower_components/foundation/js/foundation/foundation.placeholder",
-                        "foundation.alerts"         : "./../../bower_components/foundation/js/foundation/foundation.alerts"
+                        snapjs                      : "./../../bower_components/snapjs/snap.min"
                     },
                     shim: {
                         modernizr: {
@@ -66,14 +64,9 @@ module.exports = function (grunt) {
                         foundation: {
                             deps: ["jquery"]
                         },
-                        "foundation.topbar": {
-                            deps: ["foundation"]
-                        },
-                        "foundation.placeholder": {
-                            deps: ["foundation"]
-                        },
-                        "foundation.alerts": {
-                            deps: ["foundation"]
+                        snapjs: {
+                            deps: ["jquery"],
+                            exports: "Snap"
                         }
                     },
                     include: [

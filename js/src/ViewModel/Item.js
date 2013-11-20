@@ -19,17 +19,12 @@ define(["Core/ServiceManager", "knockout"], function (ServiceManager, ko) {
             pageController.goToDetailsPage(this);
         };
 
-        this.swish = function () {
-            this.swished(true);
-            this.swishCount(this.swishCount() + 1);
+        this.addToWishlist = function () {
+            this.addedToWishlist(true);
         };
 
         this.comments = function () {
             pageController.goToDetailsPage(this);
-        };
-
-        this.buy = function () {
-            alert("not implemented");
         };
 
         /*
@@ -42,11 +37,9 @@ define(["Core/ServiceManager", "knockout"], function (ServiceManager, ko) {
 
         this.description = ko.observable();
 
+        this.addedToWishlist = ko.observable(false);
+
         this.commentCount = ko.observable();
-
-        this.swishCount = ko.observable();
-
-        this.swished = ko.observable(false);
 
     };
 

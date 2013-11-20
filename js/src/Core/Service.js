@@ -48,8 +48,7 @@ define([], function () {
                     id              : guid(),
                     src             : hardcodedImages[i],
                     description     : "Lorem Ipsum Sit Dolor by Foo Bar",
-                    commentCount    : Math.floor(Math.random() * 100),
-                    swishCount      : Math.floor(Math.random() * 100)
+                    commentCount    : Math.floor(Math.random() * 100)
                 });
             }
             callback(items);
@@ -63,8 +62,7 @@ define([], function () {
                 id              : guid(),
                 src             : hardcodedImages[0],
                 description     : "Lorem Ipsum Sit Dolor by Foo Bar",
-                commentCount    : Math.floor(Math.random() * 100),
-                swishCount      : Math.floor(Math.random() * 100)
+                commentCount    : Math.floor(Math.random() * 100)
             });
         };
 

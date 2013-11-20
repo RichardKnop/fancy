@@ -4,7 +4,7 @@ define([
     "Core/Config", "Core/ServiceManager", "Core/Router", "Core/Service",
     "Model/ImageQueue", "Model/Facebook",
     "ViewModel/App", "Core/PageController", "Core/Renderer", "knockout",
-    "parse", "jquery", "modernizr", "foundation", "foundation.topbar", "foundation/placeholder"
+    "parse", "jquery", "modernizr", "foundation", "snapjs"
 ], function (
     Config, ServiceManager, Router, Service,
     ImageQueue, Facebook,
@@ -15,6 +15,8 @@ define([
 
         this.run = function () {
             $.getJSON("config.json", function (optionsJSON) {
+                var appViewModel, snapper;
+
                 // init config and service manager
                 Config.init(optionsJSON);
                 ServiceManager.setService("Router", new Router());
@@ -37,9 +39,26 @@ define([
                 );
 
                 // init knockout bindings
-                var appViewModel = new AppViewModel();
+                appViewModel = new AppViewModel();
                 ServiceManager.setService("AppViewModel", appViewModel);
-                ko.applyBindings(appViewModel, $(".top-bar")[0]);
+                ko.applyBindings(appViewModel, $("#toolbar")[0]);
+                ko.applyBindings(appViewModel, $(".snap-drawers")[0]);
+
+                // Facebook like sliding menu
+                snapper = new Snap({
+                    element: document.getElementById('content')
+                });
+                snapper.settings({
+                    disable: "right"
+                });
+                $("#open-left").click(function () {
+                    if( snapper.state().state=="left" ){
+                        snapper.close();
+                    } else {
+                        snapper.open('left');
+                    }
+                });
+                ServiceManager.setService("Snapper", snapper);
 
                 // render
                 Renderer.render();

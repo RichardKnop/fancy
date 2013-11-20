@@ -3,31 +3,21 @@
 @import url(http://fonts.googleapis.com/css?family=Droid+Sans);
 @import "../../bower_components/foundation/scss/normalize";
 
-/* General */
-$primary-color: #424853;
-$button-function-factor: 3%;
-$header-font-family: "Droid Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-$body-font-family: "Droid Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-
-/* Topbar */
-$topbar-bg: $primary-color;
-$topbar-height: 45px;
-$topbar-margin-bottom: 1.25em;
-$topbar-dropdown-bg: $primary-color;
-$topbar-link-bg-hover: darken($topbar-bg, 3%);
-$topbar-divider-border-bottom: solid 1px lighten($topbar-bg, 10%);
-$topbar-divider-border-top: solid 1px darken($topbar-bg, 10%);
+@import "variables";
 
 @import "../../bower_components/foundation/scss/foundation/components/global";
 @import "../../bower_components/foundation/scss/foundation/components/grid";
 @import "../../bower_components/foundation/scss/foundation/components/type";
 @import "../../bower_components/foundation/scss/foundation/components/buttons";
-@import "../../bower_components/foundation/scss/foundation/components/top-bar";
 @import "../../bower_components/foundation/scss/foundation/components/panels";
 @import "../../bower_components/foundation/scss/foundation/components/labels";
 @import "../../bower_components/foundation/scss/foundation/components/orbit"; /* needed for placeholder */
 
 @import "compass";
+@import "global";
+@import "snap";
+@import "toolbar";
+@import "comments";
 
 /* Buttons */
 $button-med: em-calc(12);
@@ -35,21 +25,19 @@ $button-tny: em-calc(7);
 $button-sml: em-calc(9);
 $button-lrg: em-calc(16);
 
-html, body {
-  color: #444;
-  background: #ebeced;
-}
-
-h1, h2, h3, h4, h5, p, li, figcaption, figcaption a, figcaption small {
-  font-family: 'Droid Sans', sans-serif;
-}
-
-.clearfix {
-  @include clearfix;
-}
-
-.large-centered {
-  text-align: center;
+#content {
+  #content-container {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden; /* Chrome and Safari */
+    -moz-backface-visibility: hidden; /* Firefox */
+    -ms-backface-visibility: hidden; /* Internet Explorer 10+ */
+    position: absolute;
+    top: 4.25em;
+    position: absolute;
+    min-height: 100px;
+    width: 100%;
+    overflow: auto;
+  }
 }
 
 .swish-panel {

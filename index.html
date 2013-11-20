@@ -5,6 +5,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
+    <meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="yes" name="apple-touch-fullscreen">
     <title>Welcome to Swishlist</title>
     <meta name="description" content="Welcome to Swishlist! Find and share trendy and beautiful things here.">
     <link href="css/stylesheets/main.css" rel="stylesheet">
@@ -12,11 +15,13 @@
 </head>
 <body>
 
-<div class="fixed">
-    <nav class="top-bar">
-        <section class="top-bar-section">
-            <ul class="left">
-                <li class="divider"></li>
+<div class="snap-drawers">
+    <div class="snap-drawer snap-drawer-left">
+        <div>
+            <ul>
+                <li>
+                    <a href="javascript:;" data-bind="click: goToHomePage">Home</a>
+                </li>
                 <li data-bind="ifnot: isUserLoggedIn">
                     <a href="javascript:;" data-bind="click: goToLoginPage">
                         Sign In <i class="fa fa-sign-in"></i>
@@ -27,18 +32,28 @@
                         Sign Out <i class="fa fa-sign-out"></i>
                     </a>
                 </li>
+                <li>
+                    <a href="javascript:;">Foo</a>
+                </li>
+                <li>
+                    <a href="javascript:;">Bar</a>
+                </li>
             </ul>
-        </section>
-        <ul class="title-area">
-            <li class="name">
-                <h1><a href="javascript:;" data-bind="click: goToHomePage">Swishlist</a></h1>
-            </li>
-            <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
-        </ul>
-    </nav>
+        </div>
+    </div>
 </div>
 
-<div id="content-container"></div>
+<div id="content" class="snap-content">
+    <div id="toolbar">
+        <a href="javascript:;" id="open-left"></a>
+        <a href="javascript:;" data-bind="click: goToHomePage">
+            <h1>Swishlist</h1>
+        </a>
+    </div>
+    <div id="content-container">
+        <div class="preloader"></div>
+    </div>
+</div>
 
 <div id="fb-root"></div>
 
@@ -60,13 +75,13 @@
                     <a href="javascript:;" class="right" data-bind="click: comments">
                         {{commentCount}} <i class="fa fa-comments"></i>
                     </a>
-                    <span data-bind="ifnot: swished">
-                        <a href="javascript:;" class="swish-button" data-bind="click: swish">
-                            <i class="fa fa-heart"></i> Swish
-                        </a>&nbsp; {{swishCount}} swishes
+                    <span data-bind="ifnot: addedToWishlist">
+                        <a href="javascript:;" class="swish-button" data-bind="click: addToWishlist">
+                            <i class="fa fa-heart"></i>
+                        </a>
                     </span>
-                    <span data-bind="if: swished">
-                        You and <span data-bind="text: swishCount"></span> swished this
+                    <span data-bind="if: addedToWishlist">
+                        <i class="fa fa-check"></i> Added to your wishlist
                     </span>
                 </figcaption>
             </figure>
@@ -82,18 +97,66 @@
                     <img src="{{src}}" alt="{{description}}">
                     <figcaption>
                         <h5>{{description}}</h5>
-                                <span data-bind="ifnot: swished">
-                                    <a href="javascript:;" class="swish-button" data-bind="click: swish">
-                                        <i class="fa fa-heart"></i> Swish
-                                    </a>&nbsp; {{swishCount}} swishes
-                                </span>
-                                <span data-bind="if: swished">
-                                    You and <span data-bind="text: swishCount"></span> swished this
-                                </span>
+                        <span data-bind="ifnot: addedToWishlist">
+                            <a href="javascript:;" class="swish-button" data-bind="click: addToWishlist">
+                                <i class="fa fa-heart"></i>
+                            </a>
+                        </span>
+                        <span data-bind="if: addedToWishlist">
+                            <i class="fa fa-check"></i> Added to your wishlist
+                        </span>
                     </figcaption>
                 </figure>
                 <hr>
-                <a href="javascript:;" class="buy-button" data-bind="click: buy">Buy</a>
+                <section class="comments">
+                    <article class="comment">
+                        <a class="comment-img" href="javascript:;">
+                            <img src="http://lorempixum.com/50/50/people/1" alt="" width="50" height="50">
+                        </a>
+                        <div class="comment-body">
+                            <div class="text">
+                                <p>Hello, this is an example comment</p>
+                            </div>
+                            <p class="attribution">by Joe Bloggs at 14:23pm, 4th Dec 2010</p>
+                        </div>
+                    </article>
+                    <article class="comment">
+                        <a class="comment-img" href="javascript:;">
+                            <img src="http://lorempixum.com/50/50/people/7" alt="" width="50" height="50">
+                        </a>
+                        <div class="comment-body">
+                            <div class="text">
+                                <p>This is a much longer one that will go on for a few lines.</p>
+                                <p>It has multiple paragraphs and is full of waffle to pad out the comment. Usually, you just wish these sorts of comments would come to an end.</p>
+                            </div>
+                            <p class="attribution">by Joe Bloggs at 14:23pm, 4th Dec 2010</p>
+                        </div>
+                    </article>
+                    <article class="comment">
+                        <a class="comment-img" href="javascript:;">
+                            <img src="http://lorempixel.com/50/50/people/9/" alt="" width="50" height="50">
+                        </a>
+                        <div class="comment-body">
+                            <div class="text">
+                                <p>The quick, brown fox jumps over a lazy dog. DJs flock by when MTV ax quiz prog. Junk MTV quiz graced by fox whelps.</p>
+                            </div>
+                            <p class="attribution">by Joe Bloggs at 14:23pm, 4th Dec 2010</p>
+                        </div>
+                    </article>
+                    <article class="comment">
+                        <a class="comment-img" href="javascript:;">
+                            <img src="http://lorempixel.com/50/50/people/10/" alt="" width="50" height="50">
+                        </a>
+                        <div class="comment-body">
+                            <div class="text">
+                                <p>Bawds jog, flick quartz, vex nymphs. Waltz, bad nymph, for quick jigs vex! Fox nymphs grab quick-jived waltz.</p>
+                                <p>Brick quiz whangs jumpy veldt fox. Bright vixens jump; dozy fowl quack. Quick wafting zephyrs vex bold Jim.</p>
+                                <p>Quick zephyrs blow, vexing daft Jim. Sex-charged fop blew my junk TV quiz. How quickly daft jumping zebras vex. Two driven jocks help fax my big quiz.</p>
+                            </div>
+                            <p class="attribution">by Joe Bloggs at 14:23pm, 4th Dec 2010</p>
+                        </div>
+                    </article>
+                </section>​
             </div>
         </div>
     </div>

@@ -36,8 +36,7 @@ define([
                         id              : obj.id,
                         placeholder     : '<div class="preloader" id="' + obj.id + '"></div>',
                         description     : obj.description,
-                        commentCount    : obj.commentCount,
-                        swishCount      : obj.swishCount
+                        commentCount    : obj.commentCount
                     }),
                     viewModel,
                     replacementHTML;
@@ -59,23 +58,23 @@ define([
                 viewModel.src(obj.src);
                 viewModel.description(obj.description);
                 viewModel.commentCount(obj.commentCount);
-                viewModel.swishCount(obj.swishCount);
                 ko.applyBindings(viewModel, $("#item-" + obj.id)[0]);
             });
         };
 
         this.goToPageCommon = function (page) {
-            $(window).unbind("scroll");
+            $("#content").unbind("scroll");
             router.reset();
             router.updateParam("page", page);
             container.html("");
+            ServiceManager.getService("Snapper").close();
         };
 
         this.goToHomePage = function () {
             this.goToPageCommon("home");
             this.loadImages();
-            $(window).scroll(function() {
-                if($(window).scrollTop() + $(window).height() == $(document).height()) {
+            $("#content").scroll(function() {
+                if($("#content").height() + $("#content").scrollTop() >= $("#content")[0].scrollHeight - 150) {
                     if (ServiceManager.getService("ImageQueue").finishedLastBatch()) {
                         that.loadImages();
                     }
@@ -98,9 +97,7 @@ define([
                         id              : obj.id,
                         src             : obj.src,
                         description     : obj.description,
-                        commentCount    : obj.commentCount,
-                        swishCount      : obj.swishCount,
-                        swished         : obj.swished
+                        commentCount    : obj.commentCount
                     }),
                     viewModel;
                 container.html(itemDetailHTML);
@@ -110,7 +107,6 @@ define([
                 viewModel.src(obj.src);
                 viewModel.description(obj.description);
                 viewModel.commentCount(obj.commentCount);
-                viewModel.swishCount(obj.swishCount);
                 ko.applyBindings(viewModel, $(".row-item")[0]);
             });
         };
