@@ -1,0 +1,71 @@
+@charset "UTF-8";
+
+@import "../../../bower_components/foundation/scss/foundation/components/panels";
+
+@import "../_variables";
+@import "compass";
+
+.swish-panel {
+  @include panel(#fff, 0.5em, false);
+  @include clearfix;
+  border: 1px solid $border-color;
+
+  figure {
+    overflow: hidden;
+    text-align: left;
+    display: block;
+
+    img {
+      width: 100%;
+    }
+
+    figcaption {
+      width: 100%;
+      padding-top: .5em;
+      line-height: 2em;
+      font-size: $text-med;
+
+      h5 {
+        font-weight: normal;
+      }
+
+      .swish-button {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.comment-panel {
+  @include panel($secondary-color, 1em, false);
+  margin-bottom: 0;
+
+  background: $secondary-color;
+  padding: .75em;
+  border: 0;
+  border-radius: 8px;
+  position: relative;
+
+  /* arrows - :before and :after */
+  &:before {
+    position: absolute;
+    display: inline-block;
+    border-top: 7px solid transparent;
+    border-right: 7px solid $secondary-color;
+    border-bottom: 7px solid transparent;
+    left: -7px;
+    top: 15px;
+    content: '';
+  }
+
+  &:after {
+    position: absolute;
+    display: inline-block;
+    border-top: 6px solid transparent;
+    border-right: 6px solid $secondary-color;
+    border-bottom: 6px solid transparent;
+    left: -6px;
+    top: 16px;
+    content: '';
+  }
+}

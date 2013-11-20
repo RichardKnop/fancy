@@ -4,15 +4,20 @@ define(["Core/ServiceManager", "knockout"], function (ServiceManager, ko) {
 
     return function () {
 
-        /*
-         * Private properties
-         */
-
         var pageController = ServiceManager.getService("PageController");
 
-        /*
-         * Event bindings
-         */
+        this.openPanelMenu = function () {
+            var snapper = ServiceManager.getService("Snapper");
+            if ("left" ===  snapper.state().state){
+                snapper.close();
+            } else {
+                snapper.open("left");
+            }
+        };
+
+        this.search = function () {
+            alert("not implemented");
+        };
 
         this.goToHomePage = function () {
             pageController.goToHomePage();
@@ -20,6 +25,10 @@ define(["Core/ServiceManager", "knockout"], function (ServiceManager, ko) {
 
         this.goToLoginPage = function () {
             pageController.goToLoginPage();
+        };
+
+        this.goToWishlist = function () {
+            pageController.goToWishListPage();
         };
 
         this.logout = function () {
@@ -34,9 +43,7 @@ define(["Core/ServiceManager", "knockout"], function (ServiceManager, ko) {
             });
         };
 
-        /*
-         * Binded properties
-         */
+        this.searchTerm = ko.observable("");
 
         this.isUserLoggedIn = ko.observable(false);
 

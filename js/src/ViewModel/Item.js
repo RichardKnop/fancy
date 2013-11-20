@@ -4,16 +4,7 @@ define(["Core/ServiceManager", "knockout"], function (ServiceManager, ko) {
 
     return function () {
 
-        /*
-         * Private properties
-         */
-
         var pageController = ServiceManager.getService("PageController");
-
-
-        /*
-         * Event bindings
-         */
 
         this.goToDetailsPage = function () {
             pageController.goToDetailsPage(this);
@@ -26,10 +17,6 @@ define(["Core/ServiceManager", "knockout"], function (ServiceManager, ko) {
         this.comments = function () {
             pageController.goToDetailsPage(this);
         };
-
-        /*
-         * Binded properties
-         */
 
         this.id = ko.observable();
 

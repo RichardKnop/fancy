@@ -41,23 +41,16 @@ define([
                 // init knockout bindings
                 appViewModel = new AppViewModel();
                 ServiceManager.setService("AppViewModel", appViewModel);
-                ko.applyBindings(appViewModel, $("#toolbar")[0]);
+                ko.applyBindings(appViewModel, $(".toolbar")[0]);
                 ko.applyBindings(appViewModel, $(".snap-drawers")[0]);
 
                 // Facebook like sliding menu
                 snapper = new Snap({
-                    element: document.getElementById('content')
+                    element: document.getElementById("content")
                 });
                 snapper.settings({
                     disable: "right",
                     touchToDrag: false
-                });
-                $("#open-left").click(function () {
-                    if( snapper.state().state=="left" ){
-                        snapper.close();
-                    } else {
-                        snapper.open('left');
-                    }
                 });
                 ServiceManager.setService("Snapper", snapper);
 

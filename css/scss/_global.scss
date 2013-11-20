@@ -1,10 +1,10 @@
 @charset "UTF-8";
 
-@import "variables";
+@import "_variables";
 @import "compass";
 
 html, body {
-  color: #444;
+  color: $primary-text-color;
   margin: 0;
   padding: 0;
   width: 100%;

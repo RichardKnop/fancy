@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+@import "../_variables";
+@import "compass";
+
+.comments {
+  text-align: left;
+
+  .comment {
+    display: table;
+    margin-top: 1.25em;
+    font-size: .9em;
+
+    .comment-avatar, .comment-body {
+      display: table-cell;
+    }
+
+    .comment-avatar {
+      width: 50px;
+      height: 50px;
+      img {
+        border: 5px solid $secondary-color;
+        border-radius: 50%;
+      }
+    }
+
+    .comment-body {
+      padding-left: .75em;
+      .attribution {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

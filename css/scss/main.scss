@@ -3,27 +3,20 @@
 @import url(http://fonts.googleapis.com/css?family=Droid+Sans);
 @import "../../bower_components/foundation/scss/normalize";
 
-@import "variables";
+@import "_variables";
 
 @import "../../bower_components/foundation/scss/foundation/components/global";
 @import "../../bower_components/foundation/scss/foundation/components/grid";
 @import "../../bower_components/foundation/scss/foundation/components/type";
-@import "../../bower_components/foundation/scss/foundation/components/buttons";
-@import "../../bower_components/foundation/scss/foundation/components/panels";
-@import "../../bower_components/foundation/scss/foundation/components/labels";
 @import "../../bower_components/foundation/scss/foundation/components/orbit"; /* needed for placeholder */
 
 @import "compass";
-@import "global";
-@import "snap";
-@import "toolbar";
-@import "comments";
-
-/* Buttons */
-$button-med: em-calc(12);
-$button-tny: em-calc(7);
-$button-sml: em-calc(9);
-$button-lrg: em-calc(16);
+@import "_global";
+@import "components/_snap";
+@import "components/_toolbar";
+@import "components/_panels";
+@import "components/_buttons";
+@import "components/_comments";
 
 #content {
   backface-visibility:hidden;
@@ -38,45 +31,9 @@ $button-lrg: em-calc(16);
     min-height: 100px;
     width: 100%;
     overflow: auto;
-  }
-}
 
-.swish-panel {
-  @include panel(#ffffff, 0.5em, false);
-  @include clearfix;
-  border: 1px solid #ddd;
-
-  figure {
-    overflow: hidden;
-    text-align: left;
-    display: block;
-
-    img {
-      width: 100%;
-    }
-
-    figcaption {
-      width: 100%;
-      padding-top: .5em;
-      line-height: 2em;
-
-      h5 {
-        font-weight: normal;
-      }
-
-      .swish-button {
-        margin-bottom: 0;
-      }
+    h2 {
+      font-size: $text-lrg;
     }
   }
-}
-
-.swish-button {
-  @include button($button-sml);
-}
-.facebook-login-button {
-  @include button($button-lrg, $facebook-blue, 0, true);
-}
-.buy-button {
-  @include button($button-lrg, #68bb42, 0, true);
 }

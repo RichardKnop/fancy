@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+@import "../_variables";
+@import "compass";
+
+@import "../../bower_components/foundation/scss/foundation/components/buttons";
+
+.swish-button {
+  @include button($button-sml, $primary-color, $button-corner-radius);
+}
+.facebook-login-button {
+  @include button($button-lrg, $facebook-blue-color, $button-corner-radius, true);
+}
+.buy-button {
+  @include button($button-lrg, $green-color, $button-corner-radius, true);
+}

@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+@import "../../bower_components/foundation/scss/foundation/components/global";
+
+$header-font-family: "Droid Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-family: "Droid Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$button-function-factor: 3%;
+
+$primary-color: #424853;
+$primary-color-darker: darken($primary-color, 5%);
+$primary-color-lighter: lighten($primary-color, 5%);
+$secondary-color: #ebeced;
+$green-color: #68bb42;
+$facebook-blue-color: #3B5998;
+$primary-text-color: #555;
+$secondary-text-color: #eee;
+$border-color: #ddd;
+
+$toolbar-height: 3em;
+$panel-font-color: $primary-text-color;
+
+$button-lrg: em-calc(16);
+$button-med: em-calc(12);
+$button-sml: em-calc(9);
+$button-tny: em-calc(7);
+$button-corner-radius: 0;
+
+$text-lrg: em-calc(24);
+$text-med: em-calc(15);
+$text-sml: em-calc(13);
+$text-tny: em-calc(10);
+
+$side-nav-font-weight: normal;
+$side-nav-padding: 0;

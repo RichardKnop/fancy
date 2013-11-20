@@ -11,7 +11,8 @@ define([
             imageQueue = ServiceManager.getService("ImageQueue"),
             service = ServiceManager.getService("Service"),
             router = ServiceManager.getService("Router"),
-            container = $("#content-container"),
+            content = $("#content"),
+            contentContainer = $("#content-container"),
             rowTemplate = $("#row-template").html(),
             rowItemTemplate = $("#row-item-template").html(),
             loginTemplate = $("#login-template").html(),
@@ -28,7 +29,7 @@ define([
             });
 
             for (i = 0; i < Config.imageQueueCapacity / 2; i += 1) {
-                container.append(rowTemplate);
+                contentContainer.append(rowTemplate);
             }
 
             imageQueue.launch(function (obj) {
@@ -40,7 +41,7 @@ define([
                     }),
                     viewModel,
                     replacementHTML;
-                $(".row-item-collection", container).each(function () {
+                $(".row-item-collection", contentContainer).each(function () {
                     var rowItemCollection = $(this),
                         rowItems = $(".row-item", rowItemCollection);
                     if (rowItems.length < 2) {
@@ -66,15 +67,16 @@ define([
             $("#content").unbind("scroll");
             router.reset();
             router.updateParam("page", page);
-            container.html("");
+            contentContainer.html("");
             ServiceManager.getService("Snapper").close();
         };
 
         this.goToHomePage = function () {
             this.goToPageCommon("home");
             this.loadImages();
-            $("#content").scroll(function() {
-                if($("#content").height() + $("#content").scrollTop() >= $("#content")[0].scrollHeight - 150) {
+
+            content.scroll(function() {
+                if(content.height() + content.scrollTop() >= content[0].scrollHeight - 150) {
                     if (ServiceManager.getService("ImageQueue").finishedLastBatch()) {
                         that.loadImages();
                     }
@@ -84,8 +86,16 @@ define([
 
         this.goToLoginPage = function () {
             this.goToPageCommon("login");
-            container.html(loginTemplate);
-            ko.applyBindings(ServiceManager.getService("AppViewModel"), $("#login-with-fb")[0]);
+            contentContainer.html(loginTemplate);
+            ko.applyBindings(ServiceManager.getService("AppViewModel"), $(".facebook-login-button")[0]);
+        };
+
+        this.goToWishListPage = function () {
+            if (false === ServiceManager.getService("Facebook").isUserLoggedIn()) {
+                this.goToLoginPage();
+                return;
+            }
+            alert("not implemented");
         };
 
         this.goToDetailsPage = function (id) {
@@ -100,7 +110,7 @@ define([
                         commentCount    : obj.commentCount
                     }),
                     viewModel;
-                container.html(itemDetailHTML);
+                contentContainer.html(itemDetailHTML);
 
                 viewModel = new ItemViewModel();
                 viewModel.id(obj.id);

@@ -1,0 +1,132 @@
+@charset "UTF-8";
+
+@import "../_variables";
+@import "compass";
+
+@import "../../bower_components/foundation/scss/foundation/components/side-nav";
+
+.snap-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+  z-index: 2;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+.snap-drawers {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: auto;
+  height: auto;
+  background: $primary-color;
+
+  .snap-drawer {
+    position: absolute;
+    top: 0;
+    right: auto;
+    bottom: 0;
+    left: auto;
+    width: 265px;
+    height: auto;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    -webkit-transition: width 0.3s ease;
+    -moz-transition: width 0.3s ease;
+    -ms-transition: width 0.3s ease;
+    -o-transition: width 0.3s ease;
+    transition: width 0.3s ease;
+    background: $primary-color;
+    color: $secondary-text-color;
+  }
+
+  .snap-drawer-left {
+    left: 0;
+    z-index: 1;
+  }
+
+  .snap-drawer-right {
+    right: 0;
+    z-index: 1;
+  }
+
+  .snapjs-left .snap-drawer-right,
+  .snapjs-right .snap-drawer-left {
+    display: none;
+  }
+
+  .snapjs-expand-left .snap-drawer-left,
+  .snapjs-expand-right .snap-drawer-right {
+    width: 100%;
+  }
+
+  .drawer-inner {
+    -webkit-transition: opacity 0.3s ease;
+    -moz-transition: opacity 0.3s ease;
+    -ms-transition: opacity 0.3s ease;
+    -o-transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease;
+  }
+
+  .snapjs-expand-left .drawer-inner,
+  .snapjs-expand-right .drawer-inner {
+    opacity: 0;
+  }
+
+  .search-box {
+    background: $primary-color-darker;
+    height: 3em;
+    padding: .75em 1em;
+
+    input {
+      border: 0;
+      color: $secondary-text-color;
+      background: $primary-color-darker;
+      width: 80%;
+      height: 1.5em;
+    }
+
+    input:focus{
+      outline: 0;
+    }
+  }
+
+  .panel-menu {
+    @include side-nav($primary-color-lighter, $text-med, $secondary-text-color);
+
+    li {
+      margin-bottom: 0;
+
+      &.active {
+        a {
+          color: $secondary-text-color;
+          background: $primary-color-darker;
+        }
+      }
+
+      a {
+        color: $secondary-text-color;
+        padding: .5em 1em;
+        &:hover {
+          background: $primary-color-darker;
+        }
+      }
+    }
+  }
+}
+
+.snap-content {
+  background: $secondary-color;
+}
