@@ -24,7 +24,14 @@ define([], function () {
             "images/17.jpg",
             "images/18.jpg",
             "images/19.jpg",
-            "images/20.jpg"
+            "images/20.jpg",
+            "images/21.jpg",
+            "images/22.png",
+            "images/23.jpg",
+            "images/24.jpg",
+            "images/25.jpg",
+            "images/26.jpg",
+            "images/27.jpg"
         ];
 
         function s4() {
@@ -64,6 +71,22 @@ define([], function () {
                 description     : "Lorem Ipsum Sit Dolor by Foo Bar",
                 commentCount    : Math.floor(Math.random() * 100)
             });
+        };
+
+        this.getWishList = function (id, callback) {
+            var items = [], i;
+            hardcodedImages.sort( function() {
+                return 0.5 - Math.random()
+            });
+            for (i = 0; i < 18; i += 1) {
+                items.push({
+                    id              : guid(),
+                    src             : hardcodedImages[i],
+                    description     : "Lorem Ipsum Sit Dolor by Foo Bar",
+                    commentCount    : Math.floor(Math.random() * 100)
+                });
+            }
+            callback(items);
         };
 
     };

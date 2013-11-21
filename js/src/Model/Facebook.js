@@ -81,8 +81,6 @@ define(["Core/ServiceManager"], function (ServiceManager) {
         this.fetchUserProfile = function () {
             FB.api('/me', function(response) {
                 userProfile = response;
-                console.log(userProfile);
-                console.log('Good to see you, ' + response.name + '.');
             });
         };
 

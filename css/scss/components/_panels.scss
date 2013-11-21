@@ -6,9 +6,10 @@
 @import "compass";
 
 .swish-panel {
-  @include panel(#fff, 0.5em, false);
+  @include panel(#fff, .75em, false);
   @include clearfix;
   border: 1px solid $border-color;
+  border-radius: 5px;
 
   figure {
     overflow: hidden;

@@ -64,7 +64,7 @@
 
 <script type="text/template" id="row-template">
     <div class="row">
-        <div class="large-12 large-centered columns">
+        <div class="large-9 large-centered columns">
             <div class="row row-item-collection"></div>
         </div>
     </div>
@@ -82,11 +82,11 @@
                     </a>
                     <span data-bind="ifnot: addedToWishlist">
                         <a href="javascript:;" class="swish-button" data-bind="click: addToWishlist">
-                            <i class="fa fa-heart"></i>
+                            <i class="fa fa-heart"></i> Add
                         </a>
                     </span>
                     <span data-bind="if: addedToWishlist">
-                        <i class="fa fa-check"></i> Added to your wishlist
+                        <i class="fa fa-heart"></i> Added to your wishlist
                     </span>
                 </figcaption>
             </figure>
@@ -96,22 +96,27 @@
 
 <script type="text/template" id="item-detail-template">
     <div class="row">
-        <div class="large-12 large-centered columns row-item" id="item-{{id}}">
+        <div class="large-9 large-centered columns row-item" id="item-{{id}}">
             <div class="swish-panel">
-                <figure class="clearfix">
-                    <img src="{{src}}" alt="{{description}}">
-                    <figcaption>
-                        <h5>{{description}}</h5>
+                <div class="row">
+                    <div class="large-8 large-centered columns">
+                        <figure class="clearfix">
+                            <img src="{{src}}" alt="{{description}}">
+                            <figcaption>
+                                <h5>{{description}}</h5>
                         <span data-bind="ifnot: addedToWishlist">
                             <a href="javascript:;" class="swish-button" data-bind="click: addToWishlist">
-                                <i class="fa fa-heart"></i>
+                                <i class="fa fa-heart"></i> Add
                             </a>
                         </span>
                         <span data-bind="if: addedToWishlist">
-                            <i class="fa fa-check"></i> Added to your wishlist
+                            <i class="fa fa-heart"></i> Added to your wishlist
                         </span>
-                    </figcaption>
-                </figure>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <hr>
                 <section class="comments">
                     <article class="comment">
                         <div class="comment-avatar">
@@ -169,12 +174,32 @@
 <script type="text/template" id="login-template">
     <div class="row">
         <div class="large-6 large-centered columns">
-            <h2>Login with Facebook</h2>
-            <a href="javascript:;" class="facebook-login-button" data-bind="click: loginWithFacebook">
-                <i class="fa fa-facebook"></i> &nbsp; Login
-            </a>
+            <div class="swish-panel">
+                <p>You can login with your Facebook account</p>
+                <a href="javascript:;" class="facebook-login-button" data-bind="click: loginWithFacebook">
+                    <i class="fa fa-facebook"></i> &nbsp; Login
+                </a>
+            </div>
         </div>
     </div>
+</script>
+
+<script type="text/template" id="wishlist-template">
+    <div class="row">
+        <div class="large-9 large-centered columns">
+            <div class="swish-panel">
+                <ul class="small-block-grid-3 wishlist-items"></ul>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="wishlist-item-template">
+    <li>
+        <a href="javascript:;" data-bind="click: goToDetailsPage">
+            <img src="{{src}}" alt="{{description}}">
+        </a>
+    </li>
 </script>
 
 <script data-main="js/src/bootstrap" src="bower_components/requirejs/require.js"></script>

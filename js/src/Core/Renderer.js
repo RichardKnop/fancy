@@ -17,8 +17,12 @@ define(["Core/ServiceManager"], function (ServiceManager) {
                 pageController.goToLoginPage();
                 return;
             }
-            if ("details" === page && id) {
-                pageController.goToDetailsPage(id);
+            if ("detail" === page && id) {
+                pageController.goToDetailPage(id);
+                return;
+            }
+            if ("wishlist" === page) {
+                pageController.goToWishListPage(id);
                 return;
             }
             pageController.goTo404Page();

@@ -1,9 +1,10 @@
 "use strict";
 
 define([
-    "Core/Config", "Core/ServiceManager", "ViewModel/Item",
+    "Core/Config", "Core/ServiceManager",
+    "ViewModel/Item", "ViewModel/WishListItem",
     "mustache", "knockout", "jquery"
-], function (Config, ServiceManager, ItemViewModel, Mustache, ko) {
+], function (Config, ServiceManager, ItemViewModel, WishListItemViewModel, Mustache, ko) {
 
     return function () {
 
@@ -16,7 +17,9 @@ define([
             rowTemplate = $("#row-template").html(),
             rowItemTemplate = $("#row-item-template").html(),
             loginTemplate = $("#login-template").html(),
-            itemDetailTemplate = $("#item-detail-template").html();
+            itemDetailTemplate = $("#item-detail-template").html(),
+            wishListTemplate = $("#wishlist-template").html(),
+            wishListItemTemplate = $("#wishlist-item-template").html();
 
         this.loadImages = function () {
             var i;
@@ -90,16 +93,8 @@ define([
             ko.applyBindings(ServiceManager.getService("AppViewModel"), $(".facebook-login-button")[0]);
         };
 
-        this.goToWishListPage = function () {
-            if (false === ServiceManager.getService("Facebook").isUserLoggedIn()) {
-                this.goToLoginPage();
-                return;
-            }
-            alert("not implemented");
-        };
-
-        this.goToDetailsPage = function (id) {
-            this.goToPageCommon("details");
+        this.goToDetailPage = function (id) {
+            this.goToPageCommon("detail");
             router.updateParam("id", id);
 
             service.getItemById(id, function (obj) {
@@ -118,6 +113,31 @@ define([
                 viewModel.description(obj.description);
                 viewModel.commentCount(obj.commentCount);
                 ko.applyBindings(viewModel, $(".row-item")[0]);
+            });
+        };
+
+        this.goToWishListPage = function () {
+            if (false === ServiceManager.getService("Facebook").isUserLoggedIn()) {
+                this.goToLoginPage();
+                return;
+            }
+            this.goToPageCommon("wishlist");
+
+            service.getWishList(ServiceManager.getService("Facebook").getUserProfile().id, function (items) {
+                contentContainer.html(Mustache.render(wishListTemplate, {}));
+                items.forEach(function (obj) {
+                    $(".wishlist-items").append(
+                        Mustache.render(wishListItemTemplate, {
+                            src: obj.src,
+                            description: obj.description
+                        })
+                    );
+                    var viewModel = new WishListItemViewModel();
+                    viewModel.id(obj.id);
+                    viewModel.src(obj.src);
+                    viewModel.description(obj.description);
+                    ko.applyBindings(viewModel, $(".wishlist-items li:last")[0]);
+                });
             });
         };
 
