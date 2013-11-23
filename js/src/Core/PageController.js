@@ -114,13 +114,13 @@ define([
         };
 
         this.goToWishListPage = function () {
-//            if (false === ServiceManager.getService("Facebook").isUserLoggedIn()) {
-//                that.goToLoginPage();
-//                return;
-//            }
+            if (false === ServiceManager.getService("Facebook").isUserLoggedIn()) {
+                that.goToLoginPage();
+                return;
+            }
             that.goToPageCommon();
-//ServiceManager.getService("Facebook").getUserProfile().id
-            service.getWishList("fagas", function (items) {
+
+            service.getWishList(ServiceManager.getService("Facebook").getUserProfile().id, function (items) {
                 $(".preloader").remove();
 
                 content.html(Mustache.render(wishListTemplate, {}));
