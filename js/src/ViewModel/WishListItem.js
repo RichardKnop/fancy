@@ -4,11 +4,13 @@ define(["Core/ServiceManager", "knockout"], function (ServiceManager, ko) {
 
     return function () {
 
-        this.id = ko.observable();
+        var that = this;
 
-        this.src = ko.observable();
+        that.id = ko.observable();
 
-        this.title = ko.observable();
+        that.src = ko.observable();
+
+        that.title = ko.observable();
 
     };
 

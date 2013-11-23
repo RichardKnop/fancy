@@ -6,13 +6,14 @@ define([
 
     return function () {
 
-        var commentTemplate = $("#comment-template").html();
+        var that = this,
+            commentTemplate = $("#comment-template").html();
 
-        this.addToWishlist = function () {
-            this.addedToWishlist(true);
+        that.addToWishlist = function () {
+            that.addedToWishlist(true);
         };
 
-        this.addComment = function () {
+        that.addComment = function () {
             if (false === ServiceManager.getService("Facebook").isUserLoggedIn()) {
                 window.location.hash = "#/login";
                 return;
@@ -26,15 +27,15 @@ define([
             $(".comments").append(html);
         };
 
-        this.id = ko.observable();
+        that.id = ko.observable();
 
-        this.src = ko.observable();
+        that.src = ko.observable();
 
-        this.title = ko.observable();
+        that.title = ko.observable();
 
-        this.addedToWishlist = ko.observable(false);
+        that.addedToWishlist = ko.observable(false);
 
-        this.commentCount = ko.observable();
+        that.commentCount = ko.observable();
 
     };
 

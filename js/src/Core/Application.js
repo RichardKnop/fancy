@@ -43,6 +43,7 @@ define([
                 router = Router({
                     "/": ServiceManager.getService("PageController").home,
                     "/login": ServiceManager.getService("PageController").login,
+                    "/logout": ServiceManager.getService("PageController").logout,
                     "/item/:item": ServiceManager.getService("PageController").itemDetail,
                     "/wishlist": ServiceManager.getService("PageController").wishlist
                 });

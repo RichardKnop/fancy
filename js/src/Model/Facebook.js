@@ -1,6 +1,6 @@
 "use strict";
 
-define(["Core/ServiceManager"], function (ServiceManager) {
+define(["Core/ServiceManager", "jquery"], function (ServiceManager) {
 
     return function () {
 
@@ -51,8 +51,13 @@ define(["Core/ServiceManager"], function (ServiceManager) {
         };
 
         this.setUserLoggedIn = function (loggedIn) {
+            var appViewModel = ServiceManager.getService("AppViewModel");
             userLoggedIn = loggedIn;
-            ServiceManager.getService("AppViewModel").isUserLoggedIn(userLoggedIn);
+            appViewModel.isUserLoggedIn(userLoggedIn);
+
+            $(".off-canvas-list a").click(function () {
+                $(this).closest(".off-canvas-wrap").removeClass("move-right");
+            });
         };
 
         this.login = function (callback) {

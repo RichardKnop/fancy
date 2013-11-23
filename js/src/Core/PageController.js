@@ -79,7 +79,7 @@ define([
             that.loadImages();
 
             $(window).scroll(function() {
-                if($(this).scrollTop() + $(this).height() == $(document).height()) {
+                if($(this).scrollTop() + $(this).height() > $(document).height() - 300) {
                     if (ServiceManager.getService("ImageQueue").finishedLastBatch()) {
                         content.append('<div class="row preloader-row" style="position: relative; height: 100px;"><div class="preloader"></div></div>');
                         that.loadImages();
