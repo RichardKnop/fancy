@@ -18,6 +18,21 @@
 @import "components/_buttons";
 @import "components/_comments";
 
+.tab-bar-section.middle {
+  text-align: center;
+  a {
+    color: $secondary-text-color;
+  }
+}
+
+.off-canvas-wrap, .inner-wrap {
+  height: 100%;
+}
+
+.off-canvas-list label {
+  display: block;
+}
+
 section.main-section {
   min-height: 100px;
   padding-top: 1.25em;

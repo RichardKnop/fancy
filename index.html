@@ -15,39 +15,6 @@
 </head>
 <body>
 
-<!--<div class="snap-drawers">-->
-    <!--<div class="snap-drawer snap-drawer-left">-->
-        <!--<div class="search-box clearfix">-->
-            <!--<form data-bind="submit: search">-->
-                <!--<i class="fa fa-search"></i>-->
-                <!--<input type="search" maxlength="35" placeholder="Search..." data-bind="value: searchTerm">-->
-            <!--</form>-->
-        <!--</div>-->
-        <!--<ul class="panel-menu">-->
-            <!--<li class="divider"></li>-->
-            <!--<li>-->
-                <!--<a href="javascript:;" data-bind="click: goToHomePage">Home</a>-->
-            <!--</li>-->
-            <!--<li class="divider"></li>-->
-            <!--<li>-->
-                <!--<a href="javascript:;" data-bind="click: goToWishlist">Wishlist</a>-->
-            <!--</li>-->
-            <!--<li class="divider"></li>-->
-            <!--<li data-bind="ifnot: isUserLoggedIn">-->
-                <!--<a href="javascript:;" data-bind="click: goToLoginPage">-->
-                    <!--Sign In <i class="fa fa-sign-in"></i>-->
-                <!--</a>-->
-            <!--</li>-->
-            <!--<li data-bind="if: isUserLoggedIn">-->
-                <!--<a href="javascript:;" data-bind="click: logout">-->
-                    <!--Sign Out <i class="fa fa-sign-out"></i>-->
-                <!--</a>-->
-            <!--</li>-->
-            <!--<li class="divider"></li>-->
-        <!--</ul>-->
-    <!--</div>-->
-<!--</div>-->
-
 <div class="off-canvas-wrap">
     <div class="inner-wrap">
         <nav class="tab-bar">
@@ -56,27 +23,28 @@
             </section>
 
             <section class="middle tab-bar-section">
-                <h1 class="title"><a href="javascript:;" data-bind="click: goToHomePage">Swishlist</a></h1>
+                <h1 class="title"><a href="#/">Swishlist</a></h1>
             </section>
 
         </nav>
 
         <aside class="left-off-canvas-menu">
             <ul class="off-canvas-list">
+                <li><label>Menu</label></li>
                 <li>
-                    <a href="javascript:;" data-bind="click: goToHomePage">Home</a>
+                    <a href="#/">Home</a>
                 </li>
                 <li>
-                    <a href="javascript:;" data-bind="click: goToWishlist">Wishlist</a>
+                    <a href="#/wishlist">Wishlist</a>
                 </li>
                 <li data-bind="ifnot: isUserLoggedIn">
-                    <a href="javascript:;" data-bind="click: goToLoginPage">
-                    Sign In <i class="fa fa-sign-in"></i>
+                    <a href="#/login">
+                    Sign In
                     </a>
                 </li>
                 <li data-bind="if: isUserLoggedIn">
                     <a href="javascript:;" data-bind="click: logout">
-                    Sign Out <i class="fa fa-sign-out"></i>
+                    Sign Out
                     </a>
                 </li>
             </ul>
@@ -108,7 +76,7 @@
                 {{{placeholder}}}
                 <figcaption>
                     <h5>{{description}}</h5>
-                    <a href="javascript:;" class="right" data-bind="click: comments">
+                    <a href="#/item/{{id}}" class="right">
                         {{commentCount}} <i class="fa fa-comments"></i>
                     </a>
                     <span data-bind="ifnot: addedToWishlist">
@@ -206,10 +174,14 @@
     <div class="row">
         <div class="small-12 medium-9 medium-centered large-6 large-centered columns">
             <div class="swish-panel">
-                <p>You can login with your Facebook account</p>
-                <a href="javascript:;" class="facebook-login-button" data-bind="click: loginWithFacebook">
-                    <i class="fa fa-facebook"></i> &nbsp; Login
-                </a>
+                <div class="row">
+                    <div class="small-9 small-centered medium-9 medium-centered large-6 large-centered columns row-item">
+                        <h3 class="text-center">Login with Facebook</h3>
+                        <a href="javascript:;" class="facebook-login-button" data-bind="click: loginWithFacebook">
+                            <i class="fa fa-facebook"></i> &nbsp; Login
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -227,7 +199,7 @@
 
 <script type="text/template" id="wishlist-item-template">
     <li>
-        <a href="javascript:;" data-bind="click: goToDetailsPage">
+        <a href="#item/{{id}}">
             <img src="{{src}}" alt="{{description}}">
         </a>
     </li>

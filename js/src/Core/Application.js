@@ -1,32 +1,31 @@
 "use strict";
 
 define([
-    "Core/Config", "Core/ServiceManager", "Core/Router", "Core/Service",
-    "Model/ImageQueue", "Model/Facebook",
-    "ViewModel/App", "Core/PageController", "Core/Renderer", "knockout",
-    "parse", "jquery", "modernizr", "foundation", "offcanvas"
+    "Core/Config", "Core/ServiceManager", "Core/Service",
+    "Model/ImageQueue", "Model/Facebook", "ViewModel/App",
+    "Core/PageController", "knockout",
+    "director", "parse", "jquery", "modernizr",
+    "foundation", "offcanvas"
 ], function (
-    Config, ServiceManager, Router, Service,
-    ImageQueue, Facebook,
-    AppViewModel, PageController, Renderer, ko
+    Config, ServiceManager, Service,
+    ImageQueue, Facebook,  AppViewModel,
+    PageController, ko, Router
 ) {
 
     return function () {
 
         this.run = function () {
             $.getJSON("config.json", function (optionsJSON) {
-                var appViewModel;
+                var appViewModel, router;
 
                 // init config and service manager
                 Config.init(optionsJSON);
-                ServiceManager.setService("Router", new Router());
                 ServiceManager.setService("Service", new Service());
                 ServiceManager.setService("ImageQueue", new ImageQueue({
                     capacity: Config.imageQueueCapacity
                 }));
                 ServiceManager.setService("Facebook", new Facebook());
                 ServiceManager.getService("Facebook").init();
-                ServiceManager.getService("Router").parseHash(window.location.hash);
                 ServiceManager.setService("PageController", new PageController());
 
                 // init the foundation framework
@@ -44,18 +43,13 @@ define([
                 ko.applyBindings(appViewModel, $(".tab-bar")[0]);
                 ko.applyBindings(appViewModel, $(".left-off-canvas-menu")[0]);
 
-//                // Facebook like sliding menu
-//                snapper = new Snap({
-//                    element: document.getElementById("content")
-//                });
-//                snapper.settings({
-//                    disable: "right",
-//                    touchToDrag: false
-//                });
-//                ServiceManager.setService("Snapper", snapper);
-
-                // render
-                Renderer.render();
+                router = Router({
+                    "/": ServiceManager.getService("PageController").goToHomePage,
+                    "/login": ServiceManager.getService("PageController").goToLoginPage,
+                    "/item/:item": ServiceManager.getService("PageController").goToDetailPage,
+                    "/wishlist": ServiceManager.getService("PageController").goToWishListPage
+                });
+                router.init();
             });
         };
 

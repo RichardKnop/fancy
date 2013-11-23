@@ -9,6 +9,7 @@ requirejs.config({
         parse                       : "//www.parsecdn.com/js/parse-1.2.13.min",
         knockout                    : "//cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min",
         mustache                    : "./../../bower_components/mustache/mustache",
+        director                    : "./../../bower_components/director/build/director.min",
         foundation                  : "./../../bower_components/foundation/js/foundation/foundation",
         offcanvas                   : "./../../bower_components/foundation/js/foundation/foundation.offcanvas"
     },
@@ -24,6 +25,9 @@ requirejs.config({
         },
         mustache: {
             exports: "Mustache"
+        },
+        director: {
+            exports: "Router"
         },
         foundation: {
             deps: ["jquery"]

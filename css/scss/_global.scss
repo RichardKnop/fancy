@@ -6,7 +6,8 @@
 html, body {
   color: $primary-text-color;
   background: $secondary-color;
-  font-family: 'Droid Sans', sans-serif;
+  font-family: $font-family;
+  height: 100%;
 }
 
 .clearfix {

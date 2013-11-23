@@ -11,7 +11,6 @@ define([
         var that = this,
             imageQueue = ServiceManager.getService("ImageQueue"),
             service = ServiceManager.getService("Service"),
-            router = ServiceManager.getService("Router"),
             content = $("section.main-section"),
             rowTemplate = $("#row-template").html(),
             rowItemTemplate = $("#row-item-template").html(),
@@ -52,7 +51,7 @@ define([
                     }
                 });
 
-                replacementHTML = '<a href="javascript:;" data-bind="click: goToDetailsPage"><img src="';
+                replacementHTML = '<a href="#/item/' + obj.id + '"><img src="';
                 replacementHTML += obj.src + '" alt="' + obj.description +'"></a>';
                 $("#" + obj.id).replaceWith(replacementHTML);
 
@@ -65,16 +64,14 @@ define([
             });
         };
 
-        this.goToPageCommon = function (page) {
+        this.goToPageCommon = function () {
             $(window).unbind("scroll");
-            router.reset();
-            router.updateParam("page", page);
             content.html("");
         };
 
         this.goToHomePage = function () {
-            this.goToPageCommon("home");
-            this.loadImages();
+            that.goToPageCommon();
+            that.loadImages();
 
             $(window).scroll(function () {
                 if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
@@ -84,14 +81,13 @@ define([
         };
 
         this.goToLoginPage = function () {
-            this.goToPageCommon("login");
+            that.goToPageCommon();
             content.html(loginTemplate);
             ko.applyBindings(ServiceManager.getService("AppViewModel"), $(".facebook-login-button")[0]);
         };
 
         this.goToDetailPage = function (id) {
-            this.goToPageCommon("detail");
-            router.updateParam("id", id);
+            that.goToPageCommon();
 
             service.getItemById(id, function (obj) {
                 var itemDetailHTML = Mustache.render(itemDetailTemplate, {
@@ -114,16 +110,17 @@ define([
 
         this.goToWishListPage = function () {
             if (false === ServiceManager.getService("Facebook").isUserLoggedIn()) {
-                this.goToLoginPage();
+                that.goToLoginPage();
                 return;
             }
-            this.goToPageCommon("wishlist");
+            that.goToPageCommon();
 
             service.getWishList(ServiceManager.getService("Facebook").getUserProfile().id, function (items) {
                 content.html(Mustache.render(wishListTemplate, {}));
                 items.forEach(function (obj) {
                     $(".wishlist-items").append(
                         Mustache.render(wishListItemTemplate, {
+                            id: obj.id,
                             src: obj.src,
                             description: obj.description
                         })
@@ -135,10 +132,6 @@ define([
                     ko.applyBindings(viewModel, $(".wishlist-items li:last")[0]);
                 });
             });
-        };
-
-        this.goTo404Page = function () {
-            alert("not implemented");
         };
 
     };
