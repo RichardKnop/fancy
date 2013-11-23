@@ -115,7 +115,7 @@ define([
 
         this.wishlist = function () {
             if (false === ServiceManager.getService("Facebook").isUserLoggedIn()) {
-                that.goToLoginPage();
+                that.login();
                 return;
             }
             that.common();
