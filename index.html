@@ -70,27 +70,33 @@
 </script>
 
 <script type="text/template" id="row-item-template">
-    <div class="small-12 medium-6 large-6 columns row-item" id="item-{{id}}">
-        <div class="swish-panel">
-            <figure class="clearfix">
-                {{{placeholder}}}
-                <figcaption>
-                    <h5>{{description}}</h5>
-                    <a href="#/item/{{id}}" class="right">
-                        {{commentCount}} <i class="fa fa-comments"></i>
-                    </a>
-                    <span data-bind="ifnot: addedToWishlist">
-                        <a href="javascript:;" class="swish-button" data-bind="click: addToWishlist">
-                            <i class="fa fa-heart"></i> Add
-                        </a>
-                    </span>
-                    <span data-bind="if: addedToWishlist">
-                        <i class="fa fa-heart"></i> Added to your wishlist
-                    </span>
-                </figcaption>
-            </figure>
+    <div class="small-12 medium-6 large-6 columns row-item">
+        <div class="swish-panel" id="item-{{id}}">
+            <div class="preloader" id="{{id}}"></div>
         </div>
     </div>
+</script>
+
+<script type="text/template" id="row-item-figure-template">
+    <figure class="clearfix">
+        <a href="#/item/{{id}}" class="th">
+            <img src="{{src}}" alt="{{title}}">
+        </a>
+        <figcaption>
+            <h5>{{title}}</h5>
+            <a href="#/item/{{id}}" class="right">
+                {{commentCount}} <i class="fa fa-comments"></i>
+            </a>
+            <span data-bind="ifnot: addedToWishlist">
+                <a href="javascript:;" class="swish-button" data-bind="click: addToWishlist">
+                    <i class="fa fa-heart"></i> Add
+                </a>
+            </span>
+            <span data-bind="if: addedToWishlist">
+                <i class="fa fa-heart"></i> Added to your wishlist
+            </span>
+        </figcaption>
+    </figure>
 </script>
 
 <script type="text/template" id="item-detail-template">
@@ -100,9 +106,9 @@
                 <div class="row">
                     <div class="small-12 medium-10 medium-centered large-8 large-centered columns">
                         <figure class="clearfix">
-                            <img src="{{src}}" alt="{{description}}">
+                            <img src="{{src}}" alt="{{title}}">
                             <figcaption>
-                                <h5>{{description}}</h5>
+                                <h5>{{title}}</h5>
                         <span data-bind="ifnot: addedToWishlist">
                             <a href="javascript:;" class="swish-button" data-bind="click: addToWishlist">
                                 <i class="fa fa-heart"></i> Add
@@ -116,6 +122,7 @@
                     </div>
                 </div>
                 <hr>
+                <h3>Comments</h3>
                 <section class="comments">
                     <article class="comment">
                         <div class="comment-avatar">
@@ -165,6 +172,15 @@
                         </div>
                     </article>
                 </section>​
+                <div class="row add-comment">
+                    <div class="small-12 medium-9 large-6 columns">
+                        <form>
+                            <h3>Add a comment</h3>
+                            <textarea></textarea>
+                            <a href="javascript:;" class="swish-button" data-bind="click: addComment">Submit</a>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -200,7 +216,7 @@
 <script type="text/template" id="wishlist-item-template">
     <li>
         <a href="#item/{{id}}">
-            <img src="{{src}}" alt="{{description}}">
+            <img src="{{src}}" alt="{{title}}">
         </a>
     </li>
 </script>

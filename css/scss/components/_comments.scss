@@ -29,7 +29,18 @@
 
       .attribution {
         margin-bottom: 0;
+        font-size: $text-sml;
       }
     }
+  }
+}
+
+.add-comment {
+  textarea {
+    height: 125px;
+  }
+
+  form, fieldset, a.swish-button {
+    margin-bottom: 0;
   }
 }

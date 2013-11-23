@@ -8,7 +8,7 @@ define(["Core/ServiceManager", "knockout"], function (ServiceManager, ko) {
 
         this.src = ko.observable();
 
-        this.description = ko.observable();
+        this.title = ko.observable();
 
     };
 

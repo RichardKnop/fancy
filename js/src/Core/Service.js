@@ -38,7 +38,7 @@ define([], function () {
             return Math.floor((1 + Math.random()) * 0x10000)
                 .toString(16)
                 .substring(1);
-        };
+        }
 
         function guid() {
             return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
@@ -54,7 +54,7 @@ define([], function () {
                 items.push({
                     id              : guid(),
                     src             : hardcodedImages[i],
-                    description     : "Lorem Ipsum Sit Dolor by Foo Bar",
+                    title           : "Lorem Ipsum Sit Dolor by Foo Bar",
                     commentCount    : Math.floor(Math.random() * 100)
                 });
             }
@@ -68,7 +68,7 @@ define([], function () {
             callback({
                 id              : guid(),
                 src             : hardcodedImages[0],
-                description     : "Lorem Ipsum Sit Dolor by Foo Bar",
+                title           : "Lorem Ipsum Sit Dolor by Foo Bar",
                 commentCount    : Math.floor(Math.random() * 100)
             });
         };
@@ -82,7 +82,7 @@ define([], function () {
                 items.push({
                     id              : guid(),
                     src             : hardcodedImages[i],
-                    description     : "Lorem Ipsum Sit Dolor by Foo Bar",
+                    title           : "Lorem Ipsum Sit Dolor by Foo Bar",
                     commentCount    : Math.floor(Math.random() * 100)
                 });
             }

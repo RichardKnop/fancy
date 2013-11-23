@@ -14,6 +14,7 @@ define([
             content = $("section.main-section"),
             rowTemplate = $("#row-template").html(),
             rowItemTemplate = $("#row-item-template").html(),
+            rowItemFigureTemplate = $("#row-item-figure-template").html(),
             loginTemplate = $("#login-template").html(),
             itemDetailTemplate = $("#item-detail-template").html(),
             wishListTemplate = $("#wishlist-template").html(),
@@ -27,46 +28,49 @@ define([
                 items.forEach(function (obj) {
                     imageQueue.add(obj);
                 });
-            });
 
-            for (i = 0; i < Config.imageQueueCapacity / 2; i += 1) {
-                content.append(rowTemplate);
-            }
+                $(".preloader").remove();
+                $(".preloader-row").remove();
 
-            imageQueue.launch(function (obj) {
-                var rowItemHTML = Mustache.render(rowItemTemplate, {
+                for (i = 0; i < Config.imageQueueCapacity / 2; i += 1) {
+                    content.append(rowTemplate);
+                }
+
+                imageQueue.launch(function (obj) {
+                    var rowItemHTML = Mustache.render(rowItemTemplate, {
+                            id: obj.id
+                        }),
+                        viewModel,
+                        replacementHTML;
+                    $(".row-item-collection", content).each(function () {
+                        var rowItemCollection = $(this),
+                            rowItems = $(".row-item", rowItemCollection);
+                        if (rowItems.length < 2) {
+                            rowItemCollection.append(rowItemHTML);
+                            return false;
+                        }
+                    });
+
+                    replacementHTML = Mustache.render(rowItemFigureTemplate, {
                         id              : obj.id,
-                        placeholder     : '<div class="preloader" id="' + obj.id + '"></div>',
-                        description     : obj.description,
+                        src             : obj.src,
+                        title           : obj.title,
                         commentCount    : obj.commentCount
-                    }),
-                    viewModel,
-                    replacementHTML;
-                $(".row-item-collection", content).each(function () {
-                    var rowItemCollection = $(this),
-                        rowItems = $(".row-item", rowItemCollection);
-                    if (rowItems.length < 2) {
-                        rowItemCollection.append(rowItemHTML);
-                        return false;
-                    }
+                    })
+                    $("#" + obj.id).replaceWith(replacementHTML);
+                    viewModel = new ItemViewModel();
+                    viewModel.id(obj.id);
+                    viewModel.src(obj.src);
+                    viewModel.title(obj.title);
+                    viewModel.commentCount(obj.commentCount);
+                    ko.applyBindings(viewModel, $("#item-" + obj.id)[0]);
                 });
-
-                replacementHTML = '<a href="#/item/' + obj.id + '"><img src="';
-                replacementHTML += obj.src + '" alt="' + obj.description +'"></a>';
-                $("#" + obj.id).replaceWith(replacementHTML);
-
-                viewModel = new ItemViewModel();
-                viewModel.id(obj.id);
-                viewModel.src(obj.src);
-                viewModel.description(obj.description);
-                viewModel.commentCount(obj.commentCount);
-                ko.applyBindings(viewModel, $("#item-" + obj.id)[0]);
             });
         };
 
         this.goToPageCommon = function () {
             $(".inner-wrap").unbind("scroll");
-            content.html("");
+            content.html('<div class="preloader"></div>');
         };
 
         this.goToHomePage = function () {
@@ -76,16 +80,11 @@ define([
             $(".inner-wrap").scroll(function() {
                 if($(this).height() + $(this).scrollTop() >= this.scrollHeight) {
                     if (ServiceManager.getService("ImageQueue").finishedLastBatch()) {
+                        content.append('<div class="row preloader-row" style="position: relative; height: 100px;"><div class="preloader"></div></div>');
                         that.loadImages();
                     }
                 }
             });
-        };
-
-        this.goToLoginPage = function () {
-            that.goToPageCommon();
-            content.html(loginTemplate);
-            ko.applyBindings(ServiceManager.getService("AppViewModel"), $(".facebook-login-button")[0]);
         };
 
         this.goToDetailPage = function (id) {
@@ -95,16 +94,19 @@ define([
                 var itemDetailHTML = Mustache.render(itemDetailTemplate, {
                         id              : obj.id,
                         src             : obj.src,
-                        description     : obj.description,
+                        title           : obj.v,
                         commentCount    : obj.commentCount
                     }),
                     viewModel;
+
+                $(".preloader").remove();
+
                 content.html(itemDetailHTML);
 
                 viewModel = new ItemViewModel();
                 viewModel.id(obj.id);
                 viewModel.src(obj.src);
-                viewModel.description(obj.description);
+                viewModel.title(obj.title);
                 viewModel.commentCount(obj.commentCount);
                 ko.applyBindings(viewModel, $(".row-item")[0]);
             });
@@ -118,22 +120,32 @@ define([
             that.goToPageCommon();
 
             service.getWishList(ServiceManager.getService("Facebook").getUserProfile().id, function (items) {
+                $(".preloader").remove();
+
                 content.html(Mustache.render(wishListTemplate, {}));
+
                 items.forEach(function (obj) {
                     $(".wishlist-items").append(
                         Mustache.render(wishListItemTemplate, {
                             id: obj.id,
                             src: obj.src,
-                            description: obj.description
+                            title: obj.title
                         })
                     );
                     var viewModel = new WishListItemViewModel();
                     viewModel.id(obj.id);
                     viewModel.src(obj.src);
-                    viewModel.description(obj.description);
+                    viewModel.title(obj.title);
                     ko.applyBindings(viewModel, $(".wishlist-items li:last")[0]);
                 });
             });
+        };
+
+        this.goToLoginPage = function () {
+            that.goToPageCommon();
+            $(".preloader").remove();
+            content.html(loginTemplate);
+            ko.applyBindings(ServiceManager.getService("AppViewModel"), $(".facebook-login-button")[0]);
         };
 
     };

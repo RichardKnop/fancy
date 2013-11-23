@@ -45,8 +45,9 @@ module.exports = function (grunt) {
                         parse                       : "//www.parsecdn.com/js/parse-1.2.13.min",
                         knockout                    : "//cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min",
                         mustache                    : "./../../bower_components/mustache/mustache",
+                        director                    : "./../../bower_components/director/build/director.min",
                         foundation                  : "./../../bower_components/foundation/js/foundation/foundation",
-                        snapjs                      : "./../../bower_components/snapjs/snap.min"
+                        offcanvas                   : "./../../bower_components/foundation/js/foundation/foundation.offcanvas"
                     },
                     shim: {
                         modernizr: {
@@ -61,12 +62,14 @@ module.exports = function (grunt) {
                         mustache: {
                             exports: "Mustache"
                         },
+                        director: {
+                            exports: "Router"
+                        },
                         foundation: {
                             deps: ["jquery"]
                         },
-                        snapjs: {
-                            deps: ["jquery"],
-                            exports: "Snap"
+                        offcanvas: {
+                            deps: ["foundation"]
                         }
                     },
                     include: [
@@ -126,6 +129,7 @@ module.exports = function (grunt) {
         compass: {
             dist: {
                 options: {
+                    watch: true,
                     sassDir: "./css/scss",
                     cssDir: "./css/stylesheets",
                     environment: "production"
@@ -149,7 +153,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask("install", ["exec:bower"]);
 
-    grunt.registerTask("css", [ "compass"]);
+    grunt.registerTask("watch", [ "compass"]);
 
     grunt.registerTask("lint", ["exec:lint"]);
 
