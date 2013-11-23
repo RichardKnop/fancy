@@ -51,7 +51,8 @@ module.exports = function (grunt) {
                         director                    : "./../../bower_components/director/build/director.min",
                         foundation                  : "./../../bower_components/foundation/js/foundation/foundation",
                         offcanvas                   : "./../../bower_components/foundation/js/foundation/foundation.offcanvas",
-                        moment                      : "./../../bower_components/momentjs/min/moment.min"
+                        moment                      : "./../../bower_components/momentjs/min/moment.min",
+                        nicescroll                  : "./../../bower_components/jquery-nicescroll/jquery.nicescroll.min"
                     },
                     shim: {
                         modernizr: {
@@ -77,6 +78,9 @@ module.exports = function (grunt) {
                         },
                         moment: {
                             exports: "moment"
+                        },
+                        nicescroll: {
+                            deps: ["jquery"]
                         }
                     },
                     include: [

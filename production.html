@@ -37,15 +37,8 @@
                 <li>
                     <a href="#/wishlist">Wishlist</a>
                 </li>
-                <li data-bind="ifnot: isUserLoggedIn">
-                    <a href="#/login">
-                        Sign In
-                    </a>
-                </li>
-                <li data-bind="if: isUserLoggedIn">
-                    <a href="javascript:;" data-bind="click: logout">
-                        Sign Out
-                    </a>
+                <li>
+                    <a data-bind="attr: { href: loginURL }, text: loginText"></a>
                 </li>
             </ul>
         </aside>

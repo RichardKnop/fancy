@@ -5,7 +5,7 @@ define([
     "Model/ImageQueue", "Model/Facebook", "ViewModel/App",
     "Core/PageController", "knockout",
     "director", "parse", "jquery", "modernizr",
-    "foundation", "offcanvas"
+    "foundation", "offcanvas", "nicescroll"
 ], function (
     Config, ServiceManager, Service,
     ImageQueue, Facebook,  AppViewModel,
@@ -41,10 +41,10 @@ define([
                 ko.applyBindings(appViewModel, $(".left-off-canvas-menu")[0]);
 
                 router = Router({
-                    "/": ServiceManager.getService("PageController").goToHomePage,
-                    "/login": ServiceManager.getService("PageController").goToLoginPage,
-                    "/item/:item": ServiceManager.getService("PageController").goToDetailPage,
-                    "/wishlist": ServiceManager.getService("PageController").goToWishListPage
+                    "/": ServiceManager.getService("PageController").home,
+                    "/login": ServiceManager.getService("PageController").login,
+                    "/item/:item": ServiceManager.getService("PageController").itemDetail,
+                    "/wishlist": ServiceManager.getService("PageController").wishlist
                 });
                 router.init();
 
@@ -58,6 +58,8 @@ define([
                 $(".off-canvas-list a").click(function () {
                     $(this).closest(".off-canvas-wrap").removeClass("move-right");
                 });
+
+                $("html").niceScroll();
             });
         };
 

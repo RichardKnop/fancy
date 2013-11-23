@@ -69,13 +69,13 @@ define([
             });
         };
 
-        this.goToPageCommon = function () {
+        this.common = function () {
             $(window).unbind("scroll");
             content.html('<div class="preloader"></div>');
         };
 
-        this.goToHomePage = function () {
-            that.goToPageCommon();
+        this.home = function () {
+            that.common();
             that.loadImages();
 
             $(window).scroll(function() {
@@ -88,8 +88,8 @@ define([
             });
         };
 
-        this.goToDetailPage = function (id) {
-            that.goToPageCommon();
+        this.itemDetail = function (id) {
+            that.common();
 
             service.getItemById(id, function (obj) {
                 var itemDetailHTML = Mustache.render(itemDetailTemplate, {
@@ -113,12 +113,12 @@ define([
             });
         };
 
-        this.goToWishListPage = function () {
+        this.wishlist = function () {
             if (false === ServiceManager.getService("Facebook").isUserLoggedIn()) {
                 that.goToLoginPage();
                 return;
             }
-            that.goToPageCommon();
+            that.common();
 
             service.getWishList(ServiceManager.getService("Facebook").getUserProfile().id, function (items) {
                 $(".preloader").remove();
@@ -142,11 +142,17 @@ define([
             });
         };
 
-        this.goToLoginPage = function () {
-            that.goToPageCommon();
+        this.login = function () {
+            that.common();
             $(".preloader").remove();
             content.html(loginTemplate);
             ko.applyBindings(ServiceManager.getService("AppViewModel"), $(".facebook-login-button")[0]);
+        };
+
+        this.logout = function () {
+            ServiceManager.getService("Facebook").logout(function () {
+                window.location.hash = "#/";
+            });
         };
 
     };
