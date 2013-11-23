@@ -9,32 +9,16 @@
 @import "../../bower_components/foundation/scss/foundation/components/grid";
 @import "../../bower_components/foundation/scss/foundation/components/block-grid";
 @import "../../bower_components/foundation/scss/foundation/components/type";
+@import "../../bower_components/foundation/scss/foundation/components/offcanvas";
 @import "../../bower_components/foundation/scss/foundation/components/orbit"; /* needed for placeholder */
 
 @import "compass";
 @import "_global";
-@import "components/_snap";
-@import "components/_toolbar";
 @import "components/_panels";
 @import "components/_buttons";
 @import "components/_comments";
 
-#content {
-  backface-visibility:hidden;
-  -webkit-backface-visibility:hidden; /* Chrome and Safari */
-  -moz-backface-visibility:hidden; /* Firefox */
-  -ms-backface-visibility:hidden; /* Internet Explorer 10+ */
-
-  #content-container {
-    position: absolute;
-    top: 4.25em;
-    position: absolute;
-    min-height: 100px;
-    width: 100%;
-    overflow: auto;
-
-    h2 {
-      font-size: $text-lrg;
-    }
-  }
+section.main-section {
+  min-height: 100px;
+  padding-top: 1.25em;
 }

@@ -12,8 +12,7 @@ define([
             imageQueue = ServiceManager.getService("ImageQueue"),
             service = ServiceManager.getService("Service"),
             router = ServiceManager.getService("Router"),
-            content = $("#content"),
-            contentContainer = $("#content-container"),
+            content = $("section.main-section"),
             rowTemplate = $("#row-template").html(),
             rowItemTemplate = $("#row-item-template").html(),
             loginTemplate = $("#login-template").html(),
@@ -32,7 +31,7 @@ define([
             });
 
             for (i = 0; i < Config.imageQueueCapacity / 2; i += 1) {
-                contentContainer.append(rowTemplate);
+                content.append(rowTemplate);
             }
 
             imageQueue.launch(function (obj) {
@@ -44,7 +43,7 @@ define([
                     }),
                     viewModel,
                     replacementHTML;
-                $(".row-item-collection", contentContainer).each(function () {
+                $(".row-item-collection", content).each(function () {
                     var rowItemCollection = $(this),
                         rowItems = $(".row-item", rowItemCollection);
                     if (rowItems.length < 2) {
@@ -67,29 +66,26 @@ define([
         };
 
         this.goToPageCommon = function (page) {
-            $("#content").unbind("scroll");
+            $(window).unbind("scroll");
             router.reset();
             router.updateParam("page", page);
-            contentContainer.html("");
-            ServiceManager.getService("Snapper").close();
+            content.html("");
         };
 
         this.goToHomePage = function () {
             this.goToPageCommon("home");
             this.loadImages();
 
-            content.scroll(function() {
-                if(content.height() + content.scrollTop() >= content[0].scrollHeight - 150) {
-                    if (ServiceManager.getService("ImageQueue").finishedLastBatch()) {
-                        that.loadImages();
-                    }
+            $(window).scroll(function () {
+                if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+                    that.loadImages();
                 }
             });
         };
 
         this.goToLoginPage = function () {
             this.goToPageCommon("login");
-            contentContainer.html(loginTemplate);
+            content.html(loginTemplate);
             ko.applyBindings(ServiceManager.getService("AppViewModel"), $(".facebook-login-button")[0]);
         };
 
@@ -105,7 +101,7 @@ define([
                         commentCount    : obj.commentCount
                     }),
                     viewModel;
-                contentContainer.html(itemDetailHTML);
+                content.html(itemDetailHTML);
 
                 viewModel = new ItemViewModel();
                 viewModel.id(obj.id);
@@ -124,7 +120,7 @@ define([
             this.goToPageCommon("wishlist");
 
             service.getWishList(ServiceManager.getService("Facebook").getUserProfile().id, function (items) {
-                contentContainer.html(Mustache.render(wishListTemplate, {}));
+                content.html(Mustache.render(wishListTemplate, {}));
                 items.forEach(function (obj) {
                     $(".wishlist-items").append(
                         Mustache.render(wishListItemTemplate, {

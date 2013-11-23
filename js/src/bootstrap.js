@@ -10,7 +10,7 @@ requirejs.config({
         knockout                    : "//cdnjs.cloudflare.com/ajax/libs/knockout/2.3.0/knockout-min",
         mustache                    : "./../../bower_components/mustache/mustache",
         foundation                  : "./../../bower_components/foundation/js/foundation/foundation",
-        snapjs                      : "./../../bower_components/snapjs/snap.min"
+        offcanvas                   : "./../../bower_components/foundation/js/foundation/foundation.offcanvas"
     },
     shim: {
         modernizr: {
@@ -28,9 +28,8 @@ requirejs.config({
         foundation: {
             deps: ["jquery"]
         },
-        snapjs: {
-            deps: ["jquery"],
-            exports: "Snap"
+        offcanvas: {
+            deps: ["foundation"]
         }
     }
 });

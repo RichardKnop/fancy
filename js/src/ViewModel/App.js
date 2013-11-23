@@ -6,19 +6,6 @@ define(["Core/ServiceManager", "knockout"], function (ServiceManager, ko) {
 
         var pageController = ServiceManager.getService("PageController");
 
-        this.openPanelMenu = function () {
-            var snapper = ServiceManager.getService("Snapper");
-            if ("left" ===  snapper.state().state){
-                snapper.close();
-            } else {
-                snapper.open("left");
-            }
-        };
-
-        this.search = function () {
-            alert("not implemented");
-        };
-
         this.goToHomePage = function () {
             pageController.goToHomePage();
         };
@@ -42,8 +29,6 @@ define(["Core/ServiceManager", "knockout"], function (ServiceManager, ko) {
                 pageController.goToHomePage();
             });
         };
-
-        this.searchTerm = ko.observable("");
 
         this.isUserLoggedIn = ko.observable(false);
 

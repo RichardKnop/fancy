@@ -11,8 +11,7 @@
     "requirejs-domready": "~2.0.1",
     "requirejs": "~2.1.8",
     "qunit": "1.12.0",
-    "foundation": "~4.3.2",
-    "mustache": "~0.7.3",
-    "snapjs": "*"
+    "foundation": "~5.0.2",
+    "mustache": "~0.7.3"
   }
 }
