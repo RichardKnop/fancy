@@ -28,9 +28,6 @@ define([
                 ServiceManager.getService("Facebook").init();
                 ServiceManager.setService("PageController", new PageController());
 
-                // init the foundation framework
-                $(document).foundation();
-
                 // init cloud app storage
                 Parse.initialize(
                     "uyHzk27yl86o2wM1eHGB4rgWXhTTb8ghMYQ6PzNp",
@@ -50,6 +47,17 @@ define([
                     "/wishlist": ServiceManager.getService("PageController").goToWishListPage
                 });
                 router.init();
+
+                if ("" === window.location.hash) {
+                    window.location.hash = "#/";
+                }
+
+                // init the foundation framework
+                $(document).foundation();
+
+                $(".off-canvas-list a").click(function () {
+                    $(this).closest(".off-canvas-wrap").removeClass("move-right");
+                });
             });
         };
 

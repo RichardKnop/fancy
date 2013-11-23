@@ -2,11 +2,15 @@ module.exports = function (grunt) {
 
     "use strict";
 
-    var productionJSFile, productionCSSFile, productionHTMLFile, generatedPaths, dependencyInstallPaths;
+    var productionHTMLFile,
+        productionJSFile,
+        productionCSSFile,
+        generatedPaths,
+        dependencyInstallPaths;
 
-    productionJSFile = "production.js";
-    productionCSSFile = "production.css";
     productionHTMLFile = "production.html";
+    productionJSFile = "production.js";
+    productionCSSFile = "main.css";
 
     generatedPaths = [
         "_site"
@@ -21,8 +25,7 @@ module.exports = function (grunt) {
         clean: {
             generated: generatedPaths,
             dependencies : dependencyInstallPaths,
-            productionJSFile: productionJSFile,
-            productionCSSFile: productionCSSFile
+            productionJSFile: productionJSFile
         },
         exec: {
             bower: {
@@ -47,7 +50,8 @@ module.exports = function (grunt) {
                         mustache                    : "./../../bower_components/mustache/mustache",
                         director                    : "./../../bower_components/director/build/director.min",
                         foundation                  : "./../../bower_components/foundation/js/foundation/foundation",
-                        offcanvas                   : "./../../bower_components/foundation/js/foundation/foundation.offcanvas"
+                        offcanvas                   : "./../../bower_components/foundation/js/foundation/foundation.offcanvas",
+                        moment                      : "./../../bower_components/momentjs/min/moment.min"
                     },
                     shim: {
                         modernizr: {
@@ -70,6 +74,9 @@ module.exports = function (grunt) {
                         },
                         offcanvas: {
                             deps: ["foundation"]
+                        },
+                        moment: {
+                            exports: "moment"
                         }
                     },
                     include: [
@@ -81,22 +88,6 @@ module.exports = function (grunt) {
                     optimize: "uglify2",
                     out: "production.js"
                 }
-            }
-        },
-        cssmin: {
-            combine: {
-                files: {
-                    "production.css": [
-                        "css/stylesheets/*.css"
-                    ]
-                }
-            },
-            minify: {
-                expand: true,
-                cwd: ".",
-                src: [productionCSSFile],
-                dest: "_site",
-                ext: ".css"
             }
         },
         copy: {
@@ -115,6 +106,10 @@ module.exports = function (grunt) {
             productionJSFile: {
                 src: productionJSFile,
                 dest: "_site/" + productionJSFile
+            },
+            productionCSSFile: {
+                src: productionCSSFile,
+                dest: "_site/production.css"
             }
         },
         connect: {
@@ -129,7 +124,6 @@ module.exports = function (grunt) {
         compass: {
             dist: {
                 options: {
-                    watch: true,
                     sassDir: "./css/scss",
                     cssDir: "./css/stylesheets",
                     environment: "production"
@@ -144,7 +138,6 @@ module.exports = function (grunt) {
 
     grunt.loadNpmTasks("grunt-exec");
     grunt.loadNpmTasks("grunt-contrib-requirejs");
-    grunt.loadNpmTasks("grunt-contrib-cssmin");
     grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks("grunt-contrib-connect");
@@ -153,7 +146,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask("install", ["exec:bower"]);
 
-    grunt.registerTask("watch", [ "compass"]);
+    grunt.registerTask("css", [ "compass"]);
 
     grunt.registerTask("lint", ["exec:lint"]);
 
@@ -166,9 +159,9 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask("build", [
-        "install", "test", "createSiteDir", "requirejs",
-        "copy:configFile", "copy:images", "copy:productionJSFile", "copy:productionHTMLFile",
-        "cssmin", "clean:productionJSFile", "clean:productionCSSFile"
+        "install", "test", "createSiteDir", "requirejs", "compass",
+        "copy:configFile", "copy:images", "copy:productionHTMLFile",
+        "copy:productionJSFile", "copy:productionCSSFile", "clean:productionJSFile"
     ]);
 
     grunt.registerTask("reset", [

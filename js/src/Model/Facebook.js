@@ -88,6 +88,10 @@ define(["Core/ServiceManager"], function (ServiceManager) {
             return userProfile;
         };
 
+        this.getAvatar = function () {
+            return "http://graph.facebook.com/" + userProfile.username + "/picture";
+        };
+
     };
 
 });

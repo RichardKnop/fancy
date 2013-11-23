@@ -11,7 +11,8 @@ requirejs.config({
         mustache                    : "./../../bower_components/mustache/mustache",
         director                    : "./../../bower_components/director/build/director.min",
         foundation                  : "./../../bower_components/foundation/js/foundation/foundation",
-        offcanvas                   : "./../../bower_components/foundation/js/foundation/foundation.offcanvas"
+        offcanvas                   : "./../../bower_components/foundation/js/foundation/foundation.offcanvas",
+        moment                      : "./../../bower_components/momentjs/min/moment.min"
     },
     shim: {
         modernizr: {
@@ -34,6 +35,9 @@ requirejs.config({
         },
         offcanvas: {
             deps: ["foundation"]
+        },
+        moment: {
+            exports: "moment"
         }
     }
 });

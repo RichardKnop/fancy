@@ -17,6 +17,7 @@ define([
             rowItemFigureTemplate = $("#row-item-figure-template").html(),
             loginTemplate = $("#login-template").html(),
             itemDetailTemplate = $("#item-detail-template").html(),
+            commentTemplate = $("#comment-template").html(),
             wishListTemplate = $("#wishlist-template").html(),
             wishListItemTemplate = $("#wishlist-item-template").html();
 
@@ -69,7 +70,7 @@ define([
         };
 
         this.goToPageCommon = function () {
-            $(".inner-wrap").unbind("scroll");
+            $(window).unbind("scroll");
             content.html('<div class="preloader"></div>');
         };
 
@@ -77,8 +78,8 @@ define([
             that.goToPageCommon();
             that.loadImages();
 
-            $(".inner-wrap").scroll(function() {
-                if($(this).height() + $(this).scrollTop() >= this.scrollHeight) {
+            $(window).scroll(function() {
+                if($(this).scrollTop() + $(this).height() == $(document).height()) {
                     if (ServiceManager.getService("ImageQueue").finishedLastBatch()) {
                         content.append('<div class="row preloader-row" style="position: relative; height: 100px;"><div class="preloader"></div></div>');
                         that.loadImages();
@@ -113,13 +114,13 @@ define([
         };
 
         this.goToWishListPage = function () {
-            if (false === ServiceManager.getService("Facebook").isUserLoggedIn()) {
-                that.goToLoginPage();
-                return;
-            }
+//            if (false === ServiceManager.getService("Facebook").isUserLoggedIn()) {
+//                that.goToLoginPage();
+//                return;
+//            }
             that.goToPageCommon();
-
-            service.getWishList(ServiceManager.getService("Facebook").getUserProfile().id, function (items) {
+//ServiceManager.getService("Facebook").getUserProfile().id
+            service.getWishList("fagas", function (items) {
                 $(".preloader").remove();
 
                 content.html(Mustache.render(wishListTemplate, {}));

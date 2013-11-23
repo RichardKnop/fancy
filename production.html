@@ -50,14 +50,14 @@
             </ul>
         </aside>
 
-        <section class="main-section">
-            <div class="preloader"></div>
-        </section>
+        <section class="main-section"></section>
 
         <a class="exit-off-canvas"></a>
 
     </div>
 </div>
+
+<div class="preloader"></div>
 
 <div id="fb-root"></div>
 
@@ -70,8 +70,8 @@
 </script>
 
 <script type="text/template" id="row-item-template">
-    <div class="small-12 medium-6 large-6 columns row-item">
-        <div class="swish-panel" id="item-{{id}}">
+    <div class="small-12 medium-6 large-6 columns row-item" id="item-{{id}}">
+        <div class="swish-panel">
             <div class="preloader" id="{{id}}"></div>
         </div>
     </div>
@@ -186,12 +186,26 @@
     </div>
 </script>
 
+<script type="text/template" id="comment-template">
+    <article class="comment">
+        <div class="comment-avatar">
+            <img src="{{avatar}}" alt="" width="50" height="50">
+        </div>
+        <div class="comment-body">
+            <div class="comment-panel">
+                {{{body}}}
+            </div>
+            <p class="attribution">by {{author}} at {{createdAt}}</p>
+        </div>
+    </article>
+</script>
+
 <script type="text/template" id="login-template">
     <div class="row">
         <div class="small-12 medium-9 medium-centered large-6 large-centered columns">
             <div class="swish-panel">
                 <div class="row">
-                    <div class="small-9 small-centered medium-9 medium-centered large-6 large-centered columns row-item">
+                    <div class="small-6 small-centered medium-6 medium-centered large-6 large-centered columns row-item">
                         <h3 class="text-center">Login with Facebook</h3>
                         <a href="javascript:;" class="facebook-login-button" data-bind="click: loginWithFacebook">
                             <i class="fa fa-facebook"></i> &nbsp; Login
@@ -215,7 +229,7 @@
 
 <script type="text/template" id="wishlist-item-template">
     <li>
-        <a href="#item/{{id}}">
+        <a href="#item/{{id}}" class="th">
             <img src="{{src}}" alt="{{title}}">
         </a>
     </li>
