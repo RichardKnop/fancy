@@ -65,7 +65,7 @@ define([
         };
 
         this.goToPageCommon = function () {
-            $(window).unbind("scroll");
+            $(".inner-wrap").unbind("scroll");
             content.html("");
         };
 
@@ -73,9 +73,11 @@ define([
             that.goToPageCommon();
             that.loadImages();
 
-            $(window).scroll(function () {
-                if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-                    that.loadImages();
+            $(".inner-wrap").scroll(function() {
+                if($(this).height() + $(this).scrollTop() >= this.scrollHeight) {
+                    if (ServiceManager.getService("ImageQueue").finishedLastBatch()) {
+                        that.loadImages();
+                    }
                 }
             });
         };
