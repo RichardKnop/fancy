@@ -15,48 +15,47 @@
 </head>
 <body>
 
-<div class="snap-drawers">
-    <div class="snap-drawer snap-drawer-left">
-        <div class="search-box clearfix">
-            <form data-bind="submit: search">
-                <i class="fa fa-search"></i>
-                <input type="search" maxlength="35" placeholder="Search..." data-bind="value: searchTerm">
-            </form>
-        </div>
-        <ul class="panel-menu">
-            <li class="divider"></li>
-            <li>
-                <a href="javascript:;" data-bind="click: goToHomePage">Home</a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a href="javascript:;" data-bind="click: goToWishlist">Wishlist</a>
-            </li>
-            <li class="divider"></li>
-            <li data-bind="ifnot: isUserLoggedIn">
-                <a href="javascript:;" data-bind="click: goToLoginPage">
-                    Sign In <i class="fa fa-sign-in"></i>
-                </a>
-            </li>
-            <li data-bind="if: isUserLoggedIn">
-                <a href="javascript:;" data-bind="click: logout">
-                    Sign Out <i class="fa fa-sign-out"></i>
-                </a>
-            </li>
-            <li class="divider"></li>
-        </ul>
-    </div>
-</div>
+<div class="off-canvas-wrap">
+    <div class="inner-wrap">
+        <nav class="tab-bar">
+            <section class="left-small">
+                <a class="left-off-canvas-toggle menu-icon" ><span></span></a>
+            </section>
 
-<div id="content" class="snap-content scrollable">
-    <div class="toolbar">
-        <a href="javascript:;" class="open-panel-menu" data-bind="click: openPanelMenu"></a>
-        <a href="javascript:;" data-bind="click: goToHomePage">
-            <h1>Swishlist</h1>
-        </a>
-    </div>
-    <div id="content-container">
-        <div class="preloader"></div>
+            <section class="middle tab-bar-section">
+                <h1 class="title"><a href="#/">Swishlist</a></h1>
+            </section>
+
+        </nav>
+
+        <aside class="left-off-canvas-menu">
+            <ul class="off-canvas-list">
+                <li><label>Menu</label></li>
+                <li>
+                    <a href="#/">Home</a>
+                </li>
+                <li>
+                    <a href="#/wishlist">Wishlist</a>
+                </li>
+                <li data-bind="ifnot: isUserLoggedIn">
+                    <a href="#/login">
+                        Sign In
+                    </a>
+                </li>
+                <li data-bind="if: isUserLoggedIn">
+                    <a href="javascript:;" data-bind="click: logout">
+                        Sign Out
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <section class="main-section">
+            <div class="preloader"></div>
+        </section>
+
+        <a class="exit-off-canvas"></a>
+
     </div>
 </div>
 
@@ -64,59 +63,66 @@
 
 <script type="text/template" id="row-template">
     <div class="row">
-        <div class="large-9 large-centered columns">
+        <div class="small-12 medium-9 medium-centered large-9 large-centered columns">
             <div class="row row-item-collection"></div>
         </div>
     </div>
 </script>
 
 <script type="text/template" id="row-item-template">
-    <div class="large-6 columns row-item" id="item-{{id}}">
-        <div class="swish-panel">
-            <figure class="clearfix">
-                {{{placeholder}}}
-                <figcaption>
-                    <h5>{{description}}</h5>
-                    <a href="javascript:;" class="right" data-bind="click: comments">
-                        {{commentCount}} <i class="fa fa-comments"></i>
-                    </a>
-                    <span data-bind="ifnot: addedToWishlist">
-                        <a href="javascript:;" class="swish-button" data-bind="click: addToWishlist">
-                            <i class="fa fa-heart"></i> Add
-                        </a>
-                    </span>
-                    <span data-bind="if: addedToWishlist">
-                        <i class="fa fa-heart"></i> Added to your wishlist
-                    </span>
-                </figcaption>
-            </figure>
+    <div class="small-12 medium-6 large-6 columns row-item">
+        <div class="swish-panel" id="item-{{id}}">
+            <div class="preloader" id="{{id}}"></div>
         </div>
     </div>
 </script>
 
+<script type="text/template" id="row-item-figure-template">
+    <figure class="clearfix">
+        <a href="#/item/{{id}}" class="th">
+            <img src="{{src}}" alt="{{title}}">
+        </a>
+        <figcaption>
+            <h5>{{title}}</h5>
+            <a href="#/item/{{id}}" class="right">
+                {{commentCount}} <i class="fa fa-comments"></i>
+            </a>
+            <span data-bind="ifnot: addedToWishlist">
+                <a href="javascript:;" class="swish-button" data-bind="click: addToWishlist">
+                    <i class="fa fa-heart"></i> Add
+                </a>
+            </span>
+            <span data-bind="if: addedToWishlist">
+                <i class="fa fa-heart"></i> Added to your wishlist
+            </span>
+        </figcaption>
+    </figure>
+</script>
+
 <script type="text/template" id="item-detail-template">
     <div class="row">
-        <div class="large-9 large-centered columns row-item" id="item-{{id}}">
+        <div class="small-12 medium-9 medium-centered large-9 large-centered columns row-item" id="item-{{id}}">
             <div class="swish-panel">
                 <div class="row">
-                    <div class="large-8 large-centered columns">
+                    <div class="small-12 medium-10 medium-centered large-8 large-centered columns">
                         <figure class="clearfix">
-                            <img src="{{src}}" alt="{{description}}">
+                            <img src="{{src}}" alt="{{title}}">
                             <figcaption>
-                                <h5>{{description}}</h5>
-                        <span data-bind="ifnot: addedToWishlist">
-                            <a href="javascript:;" class="swish-button" data-bind="click: addToWishlist">
-                                <i class="fa fa-heart"></i> Add
-                            </a>
-                        </span>
-                        <span data-bind="if: addedToWishlist">
-                            <i class="fa fa-heart"></i> Added to your wishlist
-                        </span>
+                                <h5>{{title}}</h5>
+                                <span data-bind="ifnot: addedToWishlist">
+                                    <a href="javascript:;" class="swish-button" data-bind="click: addToWishlist">
+                                        <i class="fa fa-heart"></i> Add
+                                    </a>
+                                </span>
+                                <span data-bind="if: addedToWishlist">
+                                    <i class="fa fa-heart"></i> Added to your wishlist
+                                </span>
                             </figcaption>
                         </figure>
                     </div>
                 </div>
                 <hr>
+                <h3>Comments</h3>
                 <section class="comments">
                     <article class="comment">
                         <div class="comment-avatar">
@@ -166,6 +172,15 @@
                         </div>
                     </article>
                 </section>​
+                <div class="row add-comment">
+                    <div class="small-12 medium-9 large-6 columns">
+                        <form>
+                            <h3>Add a comment</h3>
+                            <textarea></textarea>
+                            <a href="javascript:;" class="swish-button" data-bind="click: addComment">Submit</a>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -173,12 +188,16 @@
 
 <script type="text/template" id="login-template">
     <div class="row">
-        <div class="large-6 large-centered columns">
+        <div class="small-12 medium-9 medium-centered large-6 large-centered columns">
             <div class="swish-panel">
-                <p>You can login with your Facebook account</p>
-                <a href="javascript:;" class="facebook-login-button" data-bind="click: loginWithFacebook">
-                    <i class="fa fa-facebook"></i> &nbsp; Login
-                </a>
+                <div class="row">
+                    <div class="small-9 small-centered medium-9 medium-centered large-6 large-centered columns row-item">
+                        <h3 class="text-center">Login with Facebook</h3>
+                        <a href="javascript:;" class="facebook-login-button" data-bind="click: loginWithFacebook">
+                            <i class="fa fa-facebook"></i> &nbsp; Login
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -186,7 +205,7 @@
 
 <script type="text/template" id="wishlist-template">
     <div class="row">
-        <div class="large-9 large-centered columns">
+        <div class="small-12 medium-9 medium-centered large-9 large-centered columns">
             <div class="swish-panel">
                 <ul class="small-block-grid-3 wishlist-items"></ul>
             </div>
@@ -196,8 +215,8 @@
 
 <script type="text/template" id="wishlist-item-template">
     <li>
-        <a href="javascript:;" data-bind="click: goToDetailsPage">
-            <img src="{{src}}" alt="{{description}}">
+        <a href="#item/{{id}}">
+            <img src="{{src}}" alt="{{title}}">
         </a>
     </li>
 </script>
