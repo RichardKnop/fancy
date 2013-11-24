@@ -18,6 +18,9 @@ define([
                 window.location.hash = "#/login";
                 return;
             }
+            if ($(".add-comment textarea")[0].hasAttribute("data-invalid")) {
+                return;
+            }
             var html = Mustache.render(commentTemplate, {
                 avatar: ServiceManager.getService("Facebook").getAvatar(),
                 body: $(".add-comment textarea").val().replace(/\n/g, "<br>"),

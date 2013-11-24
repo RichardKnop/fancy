@@ -3,7 +3,7 @@
 define([
     "Core/Config", "Core/ServiceManager",
     "ViewModel/Item", "ViewModel/WishListItem",
-    "mustache", "knockout", "jquery"
+    "mustache", "knockout", "jquery", "moment"
 ], function (Config, ServiceManager, ItemViewModel, WishListItemViewModel, Mustache, ko) {
 
     return function () {
@@ -11,7 +11,7 @@ define([
         var that = this,
             imageQueue = ServiceManager.getService("ImageQueue"),
             service = ServiceManager.getService("Service"),
-            content = $("section.main-section"),
+            contentEl = $("section.main-section"),
             rowTemplate = $("#row-template").html(),
             rowItemTemplate = $("#row-item-template").html(),
             rowItemFigureTemplate = $("#row-item-figure-template").html(),
@@ -26,24 +26,24 @@ define([
             imageQueue.reset();
 
             service.getMoreItems(Config.imageQueueCapacity, function (items) {
-                items.forEach(function (obj) {
-                    imageQueue.add(obj);
+                items.forEach(function (item) {
+                    imageQueue.add(item);
                 });
 
                 $(".preloader").remove();
                 $(".preloader-row").remove();
 
                 for (i = 0; i < Config.imageQueueCapacity / 2; i += 1) {
-                    content.append(rowTemplate);
+                    contentEl.append(rowTemplate);
                 }
 
-                imageQueue.launch(function (obj) {
+                imageQueue.launch(function (item) {
                     var rowItemHTML = Mustache.render(rowItemTemplate, {
-                            id: obj.id
+                            id: item.id
                         }),
                         viewModel,
                         replacementHTML;
-                    $(".row-item-collection", content).each(function () {
+                    $(".row-item-collection", contentEl).each(function () {
                         var rowItemCollection = $(this),
                             rowItems = $(".row-item", rowItemCollection);
                         if (rowItems.length < 2) {
@@ -53,25 +53,25 @@ define([
                     });
 
                     replacementHTML = Mustache.render(rowItemFigureTemplate, {
-                        id              : obj.id,
-                        src             : obj.src,
-                        title           : obj.title,
-                        commentCount    : obj.commentCount
+                        id              : item.id,
+                        src             : item.src,
+                        title           : item.title,
+                        commentCount    : item.commentCount
                     })
-                    $("#" + obj.id).replaceWith(replacementHTML);
+                    $("#" + item.id).replaceWith(replacementHTML);
                     viewModel = new ItemViewModel();
-                    viewModel.id(obj.id);
-                    viewModel.src(obj.src);
-                    viewModel.title(obj.title);
-                    viewModel.commentCount(obj.commentCount);
-                    ko.applyBindings(viewModel, $("#item-" + obj.id)[0]);
+                    viewModel.id(item.id);
+                    viewModel.src(item.src);
+                    viewModel.title(item.title);
+                    viewModel.commentCount(item.commentCount);
+                    ko.applyBindings(viewModel, $("#item-" + item.id)[0]);
                 });
             });
         };
 
         this.common = function () {
             $(window).unbind("scroll");
-            content.html('<div class="preloader"></div>');
+            contentEl.html('<div class="preloader"></div>');
         };
 
         this.home = function () {
@@ -81,35 +81,59 @@ define([
             $(window).scroll(function() {
                 if($(this).scrollTop() + $(this).height() > $(document).height() - 300) {
                     if (ServiceManager.getService("ImageQueue").finishedLastBatch()) {
-                        content.append('<div class="row preloader-row" style="position: relative; height: 100px;"><div class="preloader"></div></div>');
+                        contentEl.append('<div class="row preloader-row" style="position: relative; height: 100px;"><div class="preloader"></div></div>');
                         that.loadImages();
                     }
                 }
             });
         };
 
-        this.itemDetail = function (id) {
+        this.itemDetail = function (itemID) {
             that.common();
 
-            service.getItemById(id, function (obj) {
+            service.getItemById(itemID, function (item) {
                 var itemDetailHTML = Mustache.render(itemDetailTemplate, {
-                        id              : obj.id,
-                        src             : obj.src,
-                        title           : obj.v,
-                        commentCount    : obj.commentCount
+                        id              : item.id,
+                        src             : item.src,
+                        title           : item.v,
+                        commentCount    : item.commentCount
                     }),
-                    viewModel;
+                    viewModel,
+                    commentsEl;
 
                 $(".preloader").remove();
 
-                content.html(itemDetailHTML);
+                contentEl.html(itemDetailHTML);
 
                 viewModel = new ItemViewModel();
-                viewModel.id(obj.id);
-                viewModel.src(obj.src);
-                viewModel.title(obj.title);
-                viewModel.commentCount(obj.commentCount);
+                viewModel.id(item.id);
+                viewModel.src(item.src);
+                viewModel.title(item.title);
+                viewModel.commentCount(item.commentCount);
                 ko.applyBindings(viewModel, $(".row-item")[0]);
+
+                commentsEl = $("section.comments", contentEl);
+                commentsEl.html('<div class="preloader"></div>');
+                service.getComments(itemID, function (comments) {
+
+                    $(".preloader").remove();
+
+                    if (0 === comments.length) {
+                        commentsEl.html("<p>No comments yet</p>");
+                        return;
+                    }
+
+                    comments.forEach(function (comment) {
+                        var html = Mustache.render(commentTemplate, {
+                            avatar: ServiceManager.getService("Facebook").getAvatar(comment.username),
+                            body: comment.body.replace(/\n/g, "<br>"),
+                            author: comment.author,
+                            createdAt: moment(comment.createdAt * 1000).format("h:mm a, Do MMM YYYY")
+                        });
+                        commentsEl.append(html);
+                    });
+
+                });
             });
         };
 
@@ -123,7 +147,7 @@ define([
             service.getWishList(ServiceManager.getService("Facebook").getUserProfile().id, function (items) {
                 $(".preloader").remove();
 
-                content.html(Mustache.render(wishListTemplate, {}));
+                contentEl.html(Mustache.render(wishListTemplate, {}));
 
                 items.forEach(function (obj) {
                     $(".wishlist-items").append(
@@ -145,7 +169,7 @@ define([
         this.login = function () {
             that.common();
             $(".preloader").remove();
-            content.html(loginTemplate);
+            contentEl.html(loginTemplate);
             ko.applyBindings(ServiceManager.getService("AppViewModel"), $(".facebook-login-button")[0]);
         };
 

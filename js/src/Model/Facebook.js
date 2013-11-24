@@ -93,8 +93,9 @@ define(["Core/ServiceManager", "jquery"], function (ServiceManager) {
             return userProfile;
         };
 
-        this.getAvatar = function () {
-            return "http://graph.facebook.com/" + userProfile.username + "/picture";
+        this.getAvatar = function (username) {
+            username == username || userProfile.username;
+            return "http://graph.facebook.com/" + username + "/picture";
         };
 
     };

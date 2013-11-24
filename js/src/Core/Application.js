@@ -5,7 +5,7 @@ define([
     "Model/ImageQueue", "Model/Facebook", "ViewModel/App",
     "Core/PageController", "knockout",
     "director", "parse", "jquery", "modernizr",
-    "foundation", "offcanvas", "nicescroll"
+    "foundation", "offcanvas", "abide", "nicescroll"
 ], function (
     Config, ServiceManager, Service,
     ImageQueue, Facebook,  AppViewModel,
